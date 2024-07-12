@@ -16,9 +16,11 @@ USER vscode
 # Définir le répertoire de travail
 WORKDIR /workspace
 
-# Copier les fichiers de configuration de Poetry s'ils existent
+# Copier les fichiers de requirements.txt s'ils existent
 COPY . /workspace
 
+# Installer les dépendances Python
+RUN pip install --upgrade pip
 # Installer les dépendances Python avec Poetry
 RUN python -m venv /workspace/venv
 RUN curl -sSL https://install.python-poetry.org | python3 -

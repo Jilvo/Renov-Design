@@ -12,7 +12,18 @@
       "settings": {},
 
       // Add the IDs of extensions you want installed when the container is created.
-      "extensions": ["ms-python.python", "ms-python.vscode-pylance"]
+      "extensions": [
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "ms-python.black-formatter",
+        "vivaxy.vscode-conventional-commits",
+        "eamodio.gitlens",
+        "VisualStudioExptTeam.vscodeintellicode",
+        "skellock.just",
+        "esbenp.prettier-vscode",
+        "donjayamanne.python-extension-pack",
+        "Gruntfuggly.todo-tree"
+      ]
     }
   },
 
