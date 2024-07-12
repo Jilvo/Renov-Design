@@ -27,6 +27,6 @@
     }
   },
 
-  "postCreateCommand": "pip install -r requirements.txt",
+  "postCreateCommand": "poetry update",
   "remoteUser": "vscode"
 }

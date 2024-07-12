@@ -20,9 +20,10 @@ WORKDIR /workspace
 COPY . /workspace
 
 # Installer les dépendances Python
-RUN pip install --upgrade pip && \
-    pip install -r requirements.txt
-
+RUN pip install --upgrade pip
+# Installer les dépendances Python avec Poetry
+RUN python -m venv /workspace/venv
+RUN curl -sSL https://install.python-poetry.org | python3 -
 # Exposer le port 8000 (optionnel, si vous avez une application web)
 EXPOSE 8000
 
