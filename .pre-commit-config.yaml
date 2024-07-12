@@ -9,3 +9,5 @@ repos:
       # Run the formatter.
       - id: ruff-format
         types_or: [python, pyi, jupyter]
+      - id: unused-imports
+        types_or: [python, pyi, jupyter]*
