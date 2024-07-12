@@ -24,7 +24,7 @@ RUN curl -sSL https://install.python-poetry.org | python3 -
 
 # Changer le propriétaire du répertoire de travail au nouvel utilisateur
 RUN chown -R vscode:vscode /workspace
-
+RUN chmod +x setup.sh
 # Définir l'utilisateur vscode
 USER vscode
 

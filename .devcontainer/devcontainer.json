@@ -22,11 +22,11 @@
         "skellock.just",
         "esbenp.prettier-vscode",
         "donjayamanne.python-extension-pack",
-        "Gruntfuggly.todo-tree"
+        "Gruntfuggly.todo-tree",
+        "ms-azuretools.vscode-docker"
       ]
     }
   },
-
-  "postCreateCommand": "poetry update",
+  "postCreateCommand": "./setup.sh",
   "remoteUser": "vscode"
 }
