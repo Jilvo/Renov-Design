@@ -17,7 +17,7 @@ USER vscode
 WORKDIR /workspace
 
 # Copier les fichiers de requirements.txt s'ils existent
-COPY requirements.txt /workspace/requirements.txt
+COPY . /workspace
 
 # Installer les dépendances Python
 RUN pip install --upgrade pip && \
