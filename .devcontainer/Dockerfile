@@ -16,12 +16,12 @@ USER vscode
 # Définir le répertoire de travail
 WORKDIR /workspace
 
-# Copier les fichiers de requirements.txt s'ils existent
-COPY requirements.txt /workspace/requirements.txt
+# Copier les fichiers de configuration de Poetry s'ils existent
+COPY . /workspace
 
-# Installer les dépendances Python
-RUN pip install --upgrade pip && \
-    pip install -r requirements.txt
+# Installer les dépendances Python avec Poetry
+# Note : L'option `--no-root` est utilisée pour ne pas installer le paquet du projet lui-même
+RUN python3 -m venv venv
 
 # Exposer le port 8000 (optionnel, si vous avez une application web)
 EXPOSE 8000

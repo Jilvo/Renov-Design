@@ -20,6 +20,6 @@
 		}
 	},
 
-    "postCreateCommand": "poetry install",
+    // "postCreateCommand": "poetry install",
     "remoteUser": "vscode"
 }
