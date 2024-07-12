@@ -22,7 +22,8 @@
         "skellock.just",
         "esbenp.prettier-vscode",
         "donjayamanne.python-extension-pack",
-        "Gruntfuggly.todo-tree"
+        "Gruntfuggly.todo-tree",
+        "elagil.pre-commit-helper"
       ]
     }
   },

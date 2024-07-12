@@ -10,20 +10,24 @@ RUN apt-get update && apt-get install -y \
     curl \
     && rm -rf /var/lib/apt/lists/*
 
-# Définir l'utilisateur vscode
-USER vscode
-
 # Définir le répertoire de travail
 WORKDIR /workspace
 
-# Copier les fichiers de requirements.txt s'ils existent
-COPY . /workspace
+# Copier les fichiers de requirements.txt s'ils existent avec le bon propriétaire
+COPY --chown=vscode:vscode . /workspace
 
 # Installer les dépendances Python
 RUN pip install --upgrade pip
 # Installer les dépendances Python avec Poetry
 RUN python -m venv /workspace/venv
 RUN curl -sSL https://install.python-poetry.org | python3 -
+
+# Changer le propriétaire du répertoire de travail au nouvel utilisateur
+RUN chown -R vscode:vscode /workspace
+
+# Définir l'utilisateur vscode
+USER vscode
+
 # Exposer le port 8000 (optionnel, si vous avez une application web)
 EXPOSE 8000
 
