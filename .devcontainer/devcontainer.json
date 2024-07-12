@@ -1,25 +1,21 @@
 {
-    "name": "Renov-Design",
-    "dockerFile": "Dockerfile",
-    "workspaceFolder": "/workspace",
-    "context": "..",
-   
-	// Configure tool-specific properties.
-	"customizations": {
-		// Configure properties specific to VS Code.
-		"vscode": {
-			// Set *default* container specific settings.json values on container create.
-			"settings": { 
-			},
-			
-			// Add the IDs of extensions you want installed when the container is created.
-			"extensions": [
-				"ms-python.python",
-				"ms-python.vscode-pylance",
-			]
-		}
-	},
+  "name": "Renov-Design",
+  "dockerFile": "Dockerfile",
+  "workspaceFolder": "/workspace",
+  "context": "..",
 
-    // "postCreateCommand": "poetry install",
-    "remoteUser": "vscode"
+  // Configure tool-specific properties.
+  "customizations": {
+    // Configure properties specific to VS Code.
+    "vscode": {
+      // Set *default* container specific settings.json values on container create.
+      "settings": {},
+
+      // Add the IDs of extensions you want installed when the container is created.
+      "extensions": ["ms-python.python", "ms-python.vscode-pylance"]
+    }
+  },
+
+  "postCreateCommand": "poetry update",
+  "remoteUser": "vscode"
 }

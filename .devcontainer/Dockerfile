@@ -20,9 +20,8 @@ WORKDIR /workspace
 COPY . /workspace
 
 # Installer les dépendances Python avec Poetry
-# Note : L'option `--no-root` est utilisée pour ne pas installer le paquet du projet lui-même
-RUN python3 -m venv venv
-
+RUN python -m venv /workspace/venv
+RUN curl -sSL https://install.python-poetry.org | python3 -
 # Exposer le port 8000 (optionnel, si vous avez une application web)
 EXPOSE 8000
 
