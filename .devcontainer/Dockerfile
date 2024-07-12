@@ -1,5 +1,5 @@
 # Utiliser une image Python officielle
-FROM python:3.10-slim
+FROM python:3.12-slim
 
 # Créer un utilisateur non-root pour VS Code
 RUN useradd -ms /bin/bash vscode
