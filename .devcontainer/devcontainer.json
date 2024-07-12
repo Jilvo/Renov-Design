@@ -23,7 +23,9 @@
         "esbenp.prettier-vscode",
         "donjayamanne.python-extension-pack",
         "Gruntfuggly.todo-tree",
-        "ms-azuretools.vscode-docker"
+        "ms-azuretools.vscode-docker",
+        "elagil.pre-commit-helper",
+        "charliermarsh.ruff"
       ]
     }
   },
