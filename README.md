@@ -20,8 +20,10 @@ Avant de commencer, assurez-vous d'avoir les éléments suivants installés sur 
 - Docker et Docker Compose : [Installation Docker](https://docs.docker.com/engine/install/)
 - just : [Repo Github de Just](https://github.com/casey/just)
 - pre-commit : [Installation pre-commit](https://pre-commit.com/)
-
+- npm : [Installation npm](https://docs.npmjs.com/cli/v10/commands/npm-install)
+- vue.js [Installation vue.js](https://vuejs.org/guide/quick-start)
 ## Ports
 
 - 8000 : Stockage-service
 - 8001 : Generation-service
+- 8080 : Front-service
