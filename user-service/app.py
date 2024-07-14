@@ -14,7 +14,7 @@ def register():
     try:
 
         print("cc")
-        data = request.json
+        data: dict = request.json
         username = data["username"]
         email = data["email"]
         password = data["password"]
