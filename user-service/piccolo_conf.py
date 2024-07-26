@@ -1,11 +1,12 @@
 from piccolo.engine.postgres import PostgresEngine
 from piccolo.conf.apps import AppRegistry
+import os
 
 DB = PostgresEngine(
     config={
         "database": "user_service",
         "user": "alexiane",
-        "password": "alexiane",
+        "password": os.getenv("PASSWORD"),
         "host": "localhost",
         "port": 5432,
     }
