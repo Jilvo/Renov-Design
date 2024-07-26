@@ -7,6 +7,10 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.10"
+fastapi = "^0.111.1"
+kink = "^0.8.0"
+sphinx = "^7.4.7"
+sphinx-autodoc-typehints = "^2.2.3"
 
 
 [build-system]
