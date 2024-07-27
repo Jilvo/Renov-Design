@@ -1,19 +1,38 @@
-from crypt import methods
-from flask import Flask, request, render_template, redirect, url_for, flash, jsonify
-from piccolo.engine import engine_finder
-from models import UserAccount, DatabaseError
-from flasgger import Swagger, swag_from
 import hashlib
+from flask import request, jsonify
+from app.models import UserAccount, DatabaseError
+from flasgger import swag_from
 
-app = Flask(__name__)
-swagger = Swagger(app)
 
-
-@app.route("/register", methods=["POST"])
+@swag_from(
+    {
+        "tags": ["User Operations"],
+        "parameters": [
+            {
+                "name": "body",
+                "in": "body",
+                "required": True,
+                "schema": {
+                    "type": "object",
+                    "properties": {
+                        "username": {"type": "string"},
+                        "email": {"type": "string"},
+                        "password": {"type": "string"},
+                    },
+                },
+            }
+        ],
+        "responses": {
+            "201": {"description": "Account created successfully!"},
+            "400": {"description": "Bad Request"},
+            "500": {"description": "Database error occurred"},
+        },
+    }
+)
 def register():
     try:
         data = request.json
-        if data is not None:
+        if not data:
             raise ValueError("No data provided")
 
         try:
@@ -50,5 +69,5 @@ def register():
         return jsonify(response), 400
 
 
-if __name__ == "__main__":
-    app.run()
+def login():
+    pass
