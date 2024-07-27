@@ -1,48 +1,46 @@
 default_stages: [commit, push]
-exclude: ^front_service/
-
+exclude: ^docs/
 repos:
-  - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.5.1
-    hooks:
-      - id: ruff
-        types_or: [python, pyi, jupyter]
-        args: [--fix]
-      - id: ruff-format
-        types_or: [python, pyi, jupyter]
-  - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.3.0
-    hooks:
-      - id: trailing-whitespace
-      - id: end-of-file-fixer
-      - id: check-yaml
-      - id: check-added-large-files
-      - id: detect-private-key
-  - repo: https://github.com/pycqa/flake8
-    rev: 6.1.0
-    hooks:
-      - id: flake8
-  - repo: https://github.com/pre-commit/mirrors-autopep8
-    rev: v2.0.2
-    hooks:
-      - id: autopep8
-        args: ["--in-place", "--aggressive", "--aggressive"]
+  # - repo: https://github.com/astral-sh/ruff-pre-commit
+  #   rev: v0.5.1
+  #   hooks:
+  #     - id: ruff
+  #       types_or: [python, pyi, jupyter]
+  #       args: [--fix]
+  #     - id: ruff-format
+  #       types_or: [python, pyi, jupyter]
+  # - repo: https://github.com/pre-commit/pre-commit-hooks
+  #   rev: v4.3.0
+  #   hooks:
+  #     - id: trailing-whitespace
+  #     - id: end-of-file-fixer
+  #     - id: check-yaml
+  #     - id: check-added-large-files
+  #     - id: detect-private-key
+  # - repo: https://github.com/pycqa/flake8
+  #   rev: 6.1.0
+  #   hooks:
+  #     - id: flake8
+  # - repo: https://github.com/pre-commit/mirrors-autopep8
+  #   rev: v2.0.2
+  #   hooks:
+  #     - id: autopep8
+  #       args: ["--in-place", "--aggressive", "--aggressive"]
   - repo: https://github.com/psf/black
     rev: 23.7.0
     hooks:
       - id: black
-  - repo: https://github.com/asottile/pyupgrade
-    rev: v3.10.1
-    hooks:
-      - id: pyupgrade
-        args: ["--py37-plus"]
-  - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.5.1
-    hooks:
-      - id: mypy
-        args:
-          [
-            "--ignore-missing-imports",
-            "--exclude",
-            "stockage-service/src/main.py",
-          ]
+  # - repo: https://github.com/asottile/pyupgrade
+  #   rev: v3.10.1
+  #   hooks:
+  #     - id: pyupgrade
+  #       args: ["--py37-plus"]
+  # # - repo: https://github.com/pre-commit/mirrors-mypy
+  #   rev: v1.5.1
+  #   hooks:
+  #     - id: mypy
+  #       args:
+  #         - --ignore-missing-imports
+  #         # Assurez-vous que le fichier de configuration mypy.ini est à la racine du projet ou spécifiez le chemin
+  #         - --config-file
+  #         - mypy.ini

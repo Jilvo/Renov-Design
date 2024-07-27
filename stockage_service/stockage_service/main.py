@@ -1,15 +1,21 @@
-from typing import Union
-
+from kink import di
 from fastapi import FastAPI
+import uvicorn
+
+from controller.controller import controller
 
 app = FastAPI()
+controller()
 
+try:
+    print("add middleware to app")
+    app.include_router(di["stockage_api_router"], tags=["stockage"], prefix="/stockage")
+    app.include_router(di["technical_api_router"], tags=["tech"], prefix="/tech")
 
-@app.get("/")
-def read_root():
-    return {"Hello": "Stockage Service successfully started!"}
+except Exception as e:
+    print(e)
+    raise e
 
-
-@app.get("/items/{item_id}")
-def read_item(item_id: int, q: Union[str, None] = None):
-    return {"item_id": item_id, "q": q}
+if __name__ == "__main__":
+    uvicorn.run("main:app", host="localhost", port=7000, reload=True)
+    # uvicorn.run("main:app", host="localhost", port=8000, workers=4)
