@@ -31,7 +31,7 @@ def generate_rst_for_modules(base_path):
 
     # Répertoire de base pour les modules
     modules_dir = os.path.join(base_path, "infrastructure")
-    output_dir = os.path.join(base_path, "docs")
+    output_dir = os.path.join(base_path, "docs/source")
 
     # Assurez-vous que le répertoire de sortie existe
     if not os.path.exists(output_dir):
