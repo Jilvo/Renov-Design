@@ -2,7 +2,7 @@ Documentation
 =============
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 10
 
    infrastructure.api.bootstrap
    infrastructure.api.stockage_api_rest.api

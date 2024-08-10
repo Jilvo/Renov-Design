@@ -46,7 +46,7 @@ def generate_rst_for_modules(base_path):
         f.write("Documentation\n")
         f.write("=============\n\n")
         f.write(".. toctree::\n")
-        f.write("   :maxdepth: 2\n\n")
+        f.write("   :maxdepth: 10\n\n")
 
         for filename in os.listdir(output_dir):
             if filename.endswith(".rst") and filename != "index.rst":
