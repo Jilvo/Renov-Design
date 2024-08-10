@@ -11,10 +11,10 @@ from commons.errors import DataValidationError
 class Prompt(BaseModel):
     """Prompt's model, which is saved in the database"""
 
-    id: UUID
+    id: str
     content: str
     creation_date: datetime
-    created_by: str
+    created_by: int
     tags: str = ""
     status: str
     related_images: List[str]
@@ -22,18 +22,7 @@ class Prompt(BaseModel):
     processing_duration: int = 0
 
     def toDict(self):
-        instance = {
-            "id": str(self.id),
-            "content": self.content,
-            "creation_date": self.creation_date,
-            "created_by": self.created_by,
-            "tags": self.tags,
-            "status": self.status,
-            "related_images": self.related_images,
-            "generation_origin": self.generation_origin,
-            "processing_duration": self.processing_duration,
-        }
-        return instance
+        return self.model_dump()
 
     @staticmethod
     def first_controls(prompt_request: PromptRequest):

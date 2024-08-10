@@ -18,11 +18,10 @@ class PromptResponse(BaseModel):
     message: str
 
     class Config:
-        # TODO corriger example
         schema_extra = {
             "example": {
-                "code": "200",
-                "type": "",
-                "message": "",
+                "code": 200,
+                "type": "success",
+                "message": "Prompt created successfully",
             },
         }

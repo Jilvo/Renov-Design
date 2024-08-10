@@ -25,7 +25,7 @@ class StockageInitialisationUseCase:
 
     def __create_prompt(self, prompt_request: PromptRequest) -> Prompt:
         prompt = Prompt(
-            id=uuid.uuid4(),
+            id=str(uuid.uuid4()),
             content=prompt_request.content,
             creation_date=datetime.now(),
             created_by=prompt_request.created_by,

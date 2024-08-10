@@ -20,6 +20,10 @@ class ResourceNotFound(DomainError):
     pass
 
 
+class QueryError(DomainError):
+    pass
+
+
 class RepositoryError(DomainError):
     @classmethod
     def save_operation_failed(cls) -> "RepositoryError":
