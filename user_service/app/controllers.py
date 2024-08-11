@@ -7,9 +7,10 @@ from flasgger import swag_from
 from werkzeug.security import generate_password_hash
 import os
 
+# from token_required import token_required
 
 SECRET_KEY = os.getenv("JWT_SECRET_KEY")
-JWT = os.getenv("JWT")
+JWT = "jwt"
 
 
 @swag_from("swagger/register_user.yml")
@@ -110,6 +111,7 @@ def get_user_by_id(user_id: int):
 
 
 @swag_from("swagger/delete_user.yml")
+# @token_required
 def delete_user(user_id: int):
     try:
         user_id = int(user_id)
@@ -125,6 +127,7 @@ def delete_user(user_id: int):
 
 
 @swag_from("swagger/update_user.yml")
+# @token_required
 def update_user(user_id: int):
     try:
         user = UserAccount.objects(id=user_id).first()

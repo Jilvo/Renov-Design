@@ -17,6 +17,14 @@ parameters:
       required:
         - username
         - email
+  - name: Authorization
+    in: header
+    required: true
+    type: string
+    description: JWT token to authorize the request (use "Bearer {token}")
+    default: "Bearer <JWT token>"
+security:
+  - Bearer: []
 responses:
   200:
     description: User updated successfully

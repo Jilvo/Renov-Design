@@ -30,6 +30,15 @@ def create_app():
         "static_url_path": "/flasgger_static",
         "swagger_ui": True,
         "specs_route": "/apidocs/",
+        "securityDefinitions": {
+            "Bearer": {
+                "type": "apiKey",
+                "name": "Authorization",
+                "in": "header",
+                "description": "JWT Authorization header using the Bearer scheme. Example: 'Bearer {token}'",
+            }
+        },
+        "security": [{"Bearer": []}],
     }
 
     Swagger(app, config=swagger_config)

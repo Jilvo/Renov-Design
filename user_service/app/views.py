@@ -27,13 +27,13 @@ def users_view():
 
 
 @app.route("/users/<user_id>", methods=["DELETE"])
-def delete_user_view(user_id):
-    return delete_user(user_id)
+def delete_user_view(current_user, user_id):
+    return delete_user(current_user, user_id)
 
 
 @app.route("/users/<user_id>", methods=["PUT"])
-def update_user_view(user_id):
-    return update_user(user_id)
+def update_user_view(current_user, user_id):
+    return update_user(current_user, user_id)
 
 
 @app.route("/users/user_id>", methods=["GET"])
