@@ -17,7 +17,7 @@ build:
 
 # Build documentation in the "docs/" directory with Sphinx
 sphinx:
-  configuration: stockage_service/stockage_service/docs/conf.py
+  configuration: stockage_service/stockage_service/docs/source/conf.py
 # Optionally build your docs in additional formats such as PDF and ePub
 # formats:
 #    - pdf
