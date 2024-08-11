@@ -1,5 +1,6 @@
 {
-  "python.analysis.typeCheckingMode": "basic",
-  "python.pythonPath": ".venv"
-  // "python.analysis.extraPaths": ["./stockage_service"]
+  "python.analysis.typeCheckingMode": "off",
+  "python.pythonPath": ".venv",
+  // "python.analysis.extraPaths": ["./stockage_service/stockage_service"]
+  "python.analysis.extraPaths": ["./stockage_service"]
 }

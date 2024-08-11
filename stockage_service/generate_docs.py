@@ -31,7 +31,7 @@ def generate_rst_for_modules(base_path):
 
     # Répertoire de base pour les modules
     modules_dir = os.path.join(base_path, "infrastructure")
-    output_dir = os.path.join(base_path, "docs")
+    output_dir = os.path.join(base_path, "docs/source")
 
     # Assurez-vous que le répertoire de sortie existe
     if not os.path.exists(output_dir):
@@ -46,7 +46,7 @@ def generate_rst_for_modules(base_path):
         f.write("Documentation\n")
         f.write("=============\n\n")
         f.write(".. toctree::\n")
-        f.write("   :maxdepth: 2\n\n")
+        f.write("   :maxdepth: 10\n\n")
 
         for filename in os.listdir(output_dir):
             if filename.endswith(".rst") and filename != "index.rst":

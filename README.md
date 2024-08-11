@@ -27,3 +27,18 @@ Avant de commencer, assurez-vous d'avoir les éléments suivants installés sur 
 - 8000 : Stockage-service
 - 8001 : Generation-service
 - 8080 : Front-service
+
+## Documentation
+Created with Sphinx
+### Update the Documentation 
+``` 
+python generate_docs.py 
+```
+ls -l stockage_service/docs
+ls -l stockage_service/infrastructure
+
+in /docs
+```
+make clean
+make html
+```
