@@ -12,17 +12,6 @@ files = [
 ]
 
 [[package]]
-name = "alabaster"
-version = "0.7.16"
-description = "A light, configurable Sphinx theme"
-optional = false
-python-versions = ">=3.9"
-files = [
-    {file = "alabaster-0.7.16-py3-none-any.whl", hash = "sha256:b46733c07dce03ae4e150330b975c75737fa60f0a7c591b6c8bf4928a28e2c92"},
-    {file = "alabaster-0.7.16.tar.gz", hash = "sha256:75a8b99c28a5dad50dd7f8ccdd447a121ddb3892da9e53d1ca5cca3106d58d65"},
-]
-
-[[package]]
 name = "annotated-types"
 version = "0.7.0"
 description = "Reusable constraint types to use with typing.Annotated"
@@ -1002,6 +991,17 @@ numpy = ["nptyping (>=2.5)"]
 testing = ["covdefaults (>=2.3)", "coverage (>=7.4.4)", "defusedxml (>=0.7.1)", "diff-cover (>=9)", "pytest (>=8.1.1)", "pytest-cov (>=5)", "sphobjinv (>=2.3.1)", "typing-extensions (>=4.11)"]
 
 [[package]]
+name = "sphinx-wagtail-theme"
+version = "6.3.0"
+description = "Sphinx Wagtail theme"
+optional = false
+python-versions = ">=3.8"
+files = [
+    {file = "sphinx_wagtail_theme-6.3.0-py2.py3-none-any.whl", hash = "sha256:53aa8e4bf69cf64d2549448a98b01bd90ccefa5b906fec9f82c3987506c2687f"},
+    {file = "sphinx_wagtail_theme-6.3.0.tar.gz", hash = "sha256:5038219fa32a78f0da35425c5fa058db4fd87336682318a6b9684495887bccfb"},
+]
+
+[[package]]
 name = "sphinxcontrib-applehelp"
 version = "1.0.8"
 description = "sphinxcontrib-applehelp is a Sphinx extension which outputs Apple help books"
@@ -1409,4 +1409,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "e8d3ca5a64f9f1bbe1b2ccc7d0c4c206a4c45866631c709cf5895f9869297b42"
+content-hash = "e2d9805037ffee9e68222568d1b375bb4b3ba517807c9a6b9cbc701114fed314"

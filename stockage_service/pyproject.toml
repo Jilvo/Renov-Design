@@ -12,6 +12,7 @@ kink = "^0.8.0"
 sphinx = "^7.4.7"
 sphinx-autodoc-typehints = "^2.2.3"
 pymongo = {extras = ["srv"], version = "^4.8.0"}
+sphinx-wagtail-theme = "^6.3.0"
 
 
 [build-system]
