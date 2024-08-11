@@ -29,7 +29,7 @@ Avant de commencer, assurez-vous d'avoir les éléments suivants installés sur 
 - 8080 : Front-service
 
 ## Documentation
-Created with Sphinx
+Created with Sphinx and Readthedocs
 ### Update the Documentation 
 ``` 
 python generate_docs.py 
