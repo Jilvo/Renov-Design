@@ -51,3 +51,9 @@ jobs:
       # - name: Build Docker Images
       # - name: Push Docker Images
       # - name: Deploy App
+
+  test:
+    runs-on: ubuntu-latest
+  lint:
+  package:
+  deploy:
