@@ -13,4 +13,4 @@ docker-run-stockage-service:
     cd stockage-service && docker run -p 8000:8000 stockage-service
 
 uptdoc-stockage-service:
-    cd stockage_service && python generate_docs.py && cd stockage_service/docs && make clean &&make html
+    cd stockage_service && python generate_docs.py && poetry export -f requirements.txt --output requirements.txt --without-hashes && cd stockage_service/docs && make clean &&make html
