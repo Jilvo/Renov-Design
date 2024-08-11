@@ -1,0 +1,25 @@
+parameters:
+  - name: user_id
+    in: path
+    required: true
+    type: string
+    description: The ID of the user to delete
+responses:
+  200:
+    description: User deleted successfully
+    schema:
+      type: object
+      properties:
+        status:
+          type: string
+        message:
+          type: string
+  400:
+    description: User deletion failed
+    schema:
+      type: object
+      properties:
+        status:
+          type: string
+        message:
+          type: string

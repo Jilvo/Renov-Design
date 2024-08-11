@@ -12,43 +12,7 @@ SECRET_KEY = os.getenv("JWT_SECRET_KEY")
 JWT = os.getenv("JWT")
 
 
-@swag_from(
-    {
-        "responses": {
-            200: {
-                "description": "A successful response",
-                "examples": {
-                    "application/json": {"message": "User registered successfully"}
-                },
-            }
-        },
-        "parameters": [
-            {
-                "name": "body",
-                "in": "body",
-                "required": True,
-                "schema": {
-                    "type": "object",
-                    "properties": {
-                        "username": {
-                            "type": "string",
-                            "description": "The username of the user",
-                        },
-                        "email": {
-                            "type": "string",
-                            "description": "The email of the user",
-                        },
-                        "password": {
-                            "type": "string",
-                            "description": "The password of the user",
-                        },
-                    },
-                    "required": ["username", "email", "password"],
-                },
-            }
-        ],
-    }
-)
+@swag_from("swagger/register_user.yml")
 def register_user():
     try:
         data: dict = request.get_json()
@@ -70,44 +34,7 @@ def register_user():
         return jsonify(response), 400
 
 
-@swag_from(
-    {
-        "parameters": [
-            {
-                "name": "body",
-                "in": "body",
-                "required": True,
-                "schema": {
-                    "type": "object",
-                    "properties": {
-                        "username": {"type": "string"},
-                        "password": {"type": "string"},
-                    },
-                    "required": ["username", "password"],
-                },
-            }
-        ],
-        "responses": {
-            200: {
-                "description": "Login successful",
-                "schema": {
-                    "type": "object",
-                    "properties": {"token": {"type": "string"}},
-                },
-            },
-            400: {
-                "description": "Login failed",
-                "schema": {
-                    "type": "object",
-                    "properties": {
-                        "status": {"type": "string"},
-                        "message": {"type": "string"},
-                    },
-                },
-            },
-        },
-    }
-)
+@swag_from("swagger/login.yml")
 def login():
     try:
         data = request.get_json()
@@ -153,26 +80,7 @@ def login():
         return jsonify(response), 400
 
 
-@swag_from(
-    {
-        "responses": {
-            200: {
-                "description": "A list of users",
-                "schema": {
-                    "type": "array",
-                    "items": {
-                        "type": "object",
-                        "properties": {
-                            "id": {"type": "string"},
-                            "username": {"type": "string"},
-                            "email": {"type": "string"},
-                        },
-                    },
-                },
-            }
-        }
-    }
-)
+@swag_from("swagger/get_user.yml")
 def get_user():
     try:
         users = UserAccount.objects().run_sync()
@@ -184,46 +92,7 @@ def get_user():
         return jsonify({"message": str(e)}), 500
 
 
-@swag_from(
-    {
-        "parameters": [
-            {
-                "name": "user_id",
-                "in": "path",
-                "type": "integer",
-                "required": True,
-                "description": "ID of the user to retrieve",
-            }
-        ],
-        "responses": {
-            200: {
-                "description": "User found",
-                "schema": {
-                    "type": "object",
-                    "properties": {
-                        "id": {"type": "integer"},
-                        "username": {"type": "string"},
-                        "email": {"type": "string"},
-                    },
-                },
-            },
-            404: {
-                "description": "User not found",
-                "schema": {
-                    "type": "object",
-                    "properties": {"message": {"type": "string"}},
-                },
-            },
-            500: {
-                "description": "Internal server error",
-                "schema": {
-                    "type": "object",
-                    "properties": {"message": {"type": "string"}},
-                },
-            },
-        },
-    }
-)
+@swag_from("swagger/get_user_by_id.yml")
 def get_user_by_id(user_id: int):
     try:
         user_id = int(user_id)
@@ -240,42 +109,7 @@ def get_user_by_id(user_id: int):
         return jsonify({"message": str(e)}), 500
 
 
-@swag_from(
-    {
-        "parameters": [
-            {
-                "name": "user_id",
-                "in": "path",
-                "type": "string",
-                "required": True,
-                "description": "ID of the user to delete",
-            }
-        ],
-        "responses": {
-            200: {
-                "description": "User deleted successfully",
-                "schema": {
-                    "type": "object",
-                    "properties": {"message": {"type": "string"}},
-                },
-            },
-            404: {
-                "description": "User not found",
-                "schema": {
-                    "type": "object",
-                    "properties": {"message": {"type": "string"}},
-                },
-            },
-            500: {
-                "description": "Internal server error",
-                "schema": {
-                    "type": "object",
-                    "properties": {"message": {"type": "string"}},
-                },
-            },
-        },
-    }
-)
+@swag_from("swagger/delete_user.yml")
 def delete_user(user_id: int):
     try:
         user_id = int(user_id)
@@ -290,61 +124,7 @@ def delete_user(user_id: int):
         return jsonify({"message": str(e)}), 500
 
 
-@swag_from(
-    {
-        "parameters": [
-            {
-                "name": "user_id",
-                "in": "path",
-                "type": "integer",
-                "required": True,
-                "description": "ID of the user to update",
-            },
-            {
-                "name": "body",
-                "in": "body",
-                "required": True,
-                "schema": {
-                    "type": "object",
-                    "properties": {
-                        "username": {"type": "string"},
-                        "email": {"type": "string"},
-                        "password": {"type": "string"},
-                    },
-                },
-                "description": "JSON object containing the user data to update",
-            },
-        ],
-        "responses": {
-            200: {
-                "description": "User updated successfully",
-                "schema": {
-                    "type": "object",
-                    "properties": {
-                        "id": {"type": "integer"},
-                        "username": {"type": "string"},
-                        "email": {"type": "string"},
-                        # Ajoutez d'autres champs ici
-                    },
-                },
-            },
-            404: {
-                "description": "User not found",
-                "schema": {
-                    "type": "object",
-                    "properties": {"message": {"type": "string"}},
-                },
-            },
-            500: {
-                "description": "Internal server error",
-                "schema": {
-                    "type": "object",
-                    "properties": {"message": {"type": "string"}},
-                },
-            },
-        },
-    }
-)
+@swag_from("swagger/update_user.yml")
 def update_user(user_id: int):
     try:
         user = UserAccount.objects(id=user_id).first()

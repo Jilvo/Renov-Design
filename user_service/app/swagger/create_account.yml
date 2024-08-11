@@ -1,0 +1,33 @@
+parameters:
+  - name: body
+    in: body
+    required: true
+    schema:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+      required:
+        - username
+        - password
+responses:
+  201:
+    description: Account created successfully
+    schema:
+      type: object
+      properties:
+        status:
+          type: string
+        message:
+          type: string
+  400:
+    description: Account creation failed
+    schema:
+      type: object
+      properties:
+        status:
+          type: string
+        message:
+          type: string
