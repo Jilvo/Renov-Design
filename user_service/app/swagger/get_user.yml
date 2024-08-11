@@ -1,0 +1,21 @@
+responses:
+  200:
+    description: List of users retrieved successfully
+    schema:
+      type: array
+      items:
+        type: object
+        properties:
+          id:
+            type: integer
+          username:
+            type: string
+          email:
+            type: string
+  500:
+    description: Internal server error
+    schema:
+      type: object
+      properties:
+        message:
+          type: string
