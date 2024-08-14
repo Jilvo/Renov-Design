@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "user-service"
+version = "0.1.0"
+description = ""
+authors = ["AlexianeBA <barbealexiane07@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+flask = "^3.0.3"
+piccolo = {extras = ["postgres"], version = "^1.13.1"}
+flasgger = "^0.9.7.1"
+flask-jwt-extended = "^4.6.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
