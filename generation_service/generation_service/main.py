@@ -1,4 +1,6 @@
+import os
 from flask import Flask, request
+from timeit import default_timer as timer
 
 app = Flask(__name__)
 
@@ -10,11 +12,15 @@ def hello_world():
 
 @app.route("/generate", methods=["POST"])
 def generate_image():
+    start = timer()
     data = request.get_json()
     prompt = data.get("prompt", "")
+    user_id = data.get("user_id", "")
     print(data)
     if not prompt or prompt == "":
         return {"code": 400, "message": "Prompt is empty!"}
+    if not user_id or user_id == "":
+        return {"code": 400, "message": "User ID is empty!"}
     try:
         from diffusers import AutoPipelineForText2Image
         import torch
@@ -28,12 +34,16 @@ def generate_image():
         pipe.to("cuda")
 
         image = pipe(prompt=prompt, num_inference_steps=1, guidance_scale=0.0).images[0]
-
-        image.save(f"{id_of_prompt}.png")
+        if not os.path.exists(user_id):
+            os.makedirs(user_id)
+        image.save(f"{user_id}/{id_of_prompt}.png")
         print("Image generated successfully!")
+        end = timer()
         return {
             "code": 200,
             "id": id_of_prompt,
+            "path": f"{user_id}/{id_of_prompt}.png",
+            "generation_duration": round(end - start, 1),
             "message": "Image generated successfully!",
         }
     except Exception as e:
