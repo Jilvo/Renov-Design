@@ -8,6 +8,7 @@ from app.controllers import (
     delete_user,
     update_user,
     get_user_by_id,
+    update_password,
 )
 import os
 
@@ -49,11 +50,12 @@ def create_app():
     app.add_url_rule(
         "/users_delete/<user_id>", "delete_user", delete_user, methods=["DELETE"]
     )
-    app.add_url_rule(
-        "/users_update/<user_id>", "update_user", update_user, methods=["PUT"]
-    )
+    app.add_url_rule("/users_update", "update_user", update_user, methods=["PUT"])
     app.add_url_rule(
         "/users_by_id/<user_id>", "users_by_id", get_user_by_id, methods=["GET"]
     )
 
+    app.add_url_rule(
+        "/update_password", "update_password", update_password, methods=["POST"]
+    )
     return app

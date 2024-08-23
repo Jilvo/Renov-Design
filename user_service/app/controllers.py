@@ -4,8 +4,8 @@ import hashlib
 import jwt
 import datetime
 from flasgger import swag_from
-from werkzeug.security import generate_password_hash
 import os
+
 
 # from token_required import token_required
 
@@ -127,19 +127,55 @@ def delete_user(user_id: int):
 
 
 @swag_from("swagger/update_user.yml")
-# @token_required
-def update_user(user_id: int):
+def update_user():
     try:
-        user = UserAccount.objects(id=user_id).first()
+        data = request.get_json()
+        user_id = int(data.get("user_id"))
+        new_username = data.get("new_username")
+
+        print(f"Received data: {data}")
+
+        user = UserAccount.objects().where(UserAccount.id == user_id).first().run_sync()
+
         if not user:
             return jsonify({"message": "User not found"}), 404
 
-        data = request.get_json()
-        if "password" in data:
-            data["password"] = generate_password_hash(data["password"])
+        user.username = new_username
+        user.save().run_sync()
 
-        user.update(**data)
-        user.reload()
-        return jsonify(user.to_dict()), 200
+        return jsonify({"message": "Username updated successfully"}), 200
+
     except Exception as e:
+        print(f"Error: {e}")
+        return jsonify({"message": str(e)}), 500
+
+
+@swag_from("swagger/update_password.yml")
+def update_password():
+    try:
+        data = request.get_json()
+        user_id = int(data.get("user_id"))
+        old_password = data.get("old_password")
+        new_password = data.get("new_password")
+
+        print(f"Received data: {data}")
+
+        user = UserAccount.objects().where(UserAccount.id == user_id).first().run_sync()
+
+        if not user:
+            return jsonify({"message": "User not found"}), 404
+
+        hashed_old_password = hashlib.sha256(old_password.encode()).hexdigest()
+        if hashed_old_password != user.password:
+            return jsonify({"message": "Old password is incorrect"}), 401
+
+        hashed_new_password = hashlib.sha256(new_password.encode()).hexdigest()
+
+        user.password = hashed_new_password
+        user.save().run_sync()
+
+        return jsonify({"message": "Password updated successfully"}), 200
+
+    except Exception as e:
+        print(f"Error: {e}")
         return jsonify({"message": str(e)}), 500

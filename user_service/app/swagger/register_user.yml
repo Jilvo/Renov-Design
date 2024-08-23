@@ -17,3 +17,6 @@ parameters:
         email:
           type: string
           description: The email of the user
+        password:
+          type: string
+          description: The password of the user
