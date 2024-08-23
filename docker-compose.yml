@@ -13,8 +13,8 @@ services:
   db:
     image: postgres:13
     environment:
-      POSTGRES_USER: jilvo
+      POSTGRES_USER: alexiane
       POSTGRES_PASSWORD: ${DB_PASSWORD}
-      POSTGRES_DB: renov-design-user
+      POSTGRES_DB: user_service
     ports:
       - "5432:5432"

@@ -5,6 +5,7 @@ from app.controllers import (
     delete_user,
     update_user,
     get_user_by_id,
+    update_password,
 )
 from flask import Flask
 
@@ -31,11 +32,16 @@ def delete_user_view(user_id):
     return delete_user(user_id)
 
 
-@app.route("/users/<user_id>", methods=["PUT"])
-def update_user_view(user_id):
-    return update_user(user_id)
+@app.route("/update_user", methods=["PUT"])
+def update_user_view():
+    return update_user()
 
 
 @app.route("/users/user_id>", methods=["GET"])
 def user_by_id(user_id):
     return get_user_by_id(user_id)
+
+
+@app.route("/update_password", methods=["POST"])
+def update_user_password():
+    return update_password()
