@@ -10,6 +10,13 @@
       "request": "launch",
       "program": "stockage_service/stockage_service/main.py",
       "console": "integratedTerminal"
+    },
+    {
+      "name": "Python Debugger : generation_service",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "generation_service/generation_service/main.py",
+      "console": "integratedTerminal"
     }
   ]
 }

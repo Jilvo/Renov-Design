@@ -25,7 +25,8 @@ Avant de commencer, assurez-vous d'avoir les éléments suivants installés sur 
 ## Ports
 
 - 8000 : Stockage-service
-- 8001 : Generation-service
+- 5000 (8001) : Generation-service
+-  : User-service
 - 8080 : Front-service
 
 ## Documentation
