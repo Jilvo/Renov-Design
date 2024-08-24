@@ -1,0 +1,27 @@
+summary: Logout the user
+description: Invalidate the user's JWT token and log them out.
+tags:
+  - Authentication
+responses:
+  "200":
+    description: Logout successful
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            message:
+              type: string
+              example: Logout successful
+  "500":
+    description: Internal server error
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            message:
+              type: string
+              example: An error occurred
+security:
+  - Bearer: []

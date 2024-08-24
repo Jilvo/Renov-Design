@@ -7,8 +7,6 @@ from flasgger import swag_from
 import os
 
 
-# from token_required import token_required
-
 SECRET_KEY = os.getenv("JWT_SECRET_KEY")
 JWT = "jwt"
 
@@ -179,3 +177,23 @@ def update_password():
     except Exception as e:
         print(f"Error: {e}")
         return jsonify({"message": str(e)}), 500
+
+
+@swag_from("swagger/logout.yml")
+def logout():
+    try:
+        token = request.headers.get("Authorization")
+
+        if not token:
+            return jsonify({"message": "Token is missing!"}), 403
+
+        try:
+            jwt.decode(token, JWT, algorithms=["HS256"])
+        except jwt.ExpiredSignatureError:
+            return jsonify({"message": "Token has expired!"}), 401
+        except jwt.InvalidTokenError:
+            return jsonify({"message": "Invalid token!"}), 401
+        return jsonify({"message": "Logout successful"}), 200
+
+    except Exception as e:
+        return jsonify({"message": f"Logout failed: {str(e)}"}), 500
