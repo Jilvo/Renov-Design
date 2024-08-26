@@ -1,3 +1,5 @@
+tags:
+  - Authentication
 parameters:
   - name: body
     in: body

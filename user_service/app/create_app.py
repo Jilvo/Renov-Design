@@ -9,6 +9,7 @@ from app.controllers import (
     update_user,
     get_user_by_id,
     update_password,
+    logout,
 )
 import os
 
@@ -51,6 +52,7 @@ def create_app():
         "/users_delete/<user_id>", "delete_user", delete_user, methods=["DELETE"]
     )
     app.add_url_rule("/users_update", "update_user", update_user, methods=["PUT"])
+    app.add_url_rule("/users_update", "update_user", update_user, methods=["PUT"])
     app.add_url_rule(
         "/users_by_id/<user_id>", "users_by_id", get_user_by_id, methods=["GET"]
     )
@@ -58,4 +60,5 @@ def create_app():
     app.add_url_rule(
         "/update_password", "update_password", update_password, methods=["POST"]
     )
+    app.add_url_rule("/logout", "logout", logout, methods=["POST"])
     return app

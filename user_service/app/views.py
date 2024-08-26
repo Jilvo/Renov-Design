@@ -6,6 +6,7 @@ from app.controllers import (
     update_user,
     get_user_by_id,
     update_password,
+    logout,
 )
 from flask import Flask
 
@@ -45,3 +46,8 @@ def user_by_id(user_id):
 @app.route("/update_password", methods=["POST"])
 def update_user_password():
     return update_password()
+
+
+@app.route("/logout", methods=["POST"])
+def logout_user():
+    return logout()

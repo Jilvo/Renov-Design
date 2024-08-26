@@ -1,16 +1,50 @@
 from flask import jsonify, request
-from app.models import UserAccount
+from app.models import UserAccount, EmailRequest
 import hashlib
 import jwt
 import datetime
 from flasgger import swag_from
 import os
+from smtp import send_email_logic
 
-
-# from token_required import token_required
 
 SECRET_KEY = os.getenv("JWT_SECRET_KEY")
-JWT = "jwt"
+JWT = os.getenv("JWT")
+
+
+def verify_account():
+    try:
+        token = request.args.get("token")
+        if not token:
+            return (
+                jsonify({"status": "error", "message": "Invalid verification token"}),
+                400,
+            )
+        user = (
+            UserAccount.objects()
+            .where(UserAccount.verification_token == token)
+            .first()
+            .run_sync()
+        )
+        if not user:
+            return (
+                jsonify({"status": "error", "message": "Invalid verification token"}),
+                400,
+            )
+
+        user.verified = True
+        user.save().run_sync()
+
+        return (
+            jsonify({"status": "success", "message": "Account verified successfully"}),
+            200,
+        )
+    except Exception as e:
+        print(f"Error: {e}")
+        return (
+            jsonify({"status": "error", "message": "Account verification failed"}),
+            500,
+        )
 
 
 @swag_from("swagger/register_user.yml")
@@ -21,6 +55,20 @@ def register_user():
         email = data["email"]
         password = data["password"]
         hashed_password = hashlib.sha256(password.encode()).hexdigest()
+        verification_token = hashlib.sha256((email + JWT).encode()).hexdigest()
+        verification_link = f"http://127.0.0.1:5000/verify={verification_token}"
+        email_body = f"Please click the following link to verify your account: {verification_link}"
+        email_request = EmailRequest(
+            receiver_email=email, subject="Verify your account", body=email_body
+        )
+        email_response = send_email_logic(email_request)
+        if email_response[1] != 201:
+            return (
+                jsonify(
+                    {"status": "error", "message": "Failed to send verification email"}
+                ),
+                500,
+            )
         new_user = UserAccount(username=username, email=email, password=hashed_password)
         new_user.save().run_sync()
 
@@ -179,3 +227,23 @@ def update_password():
     except Exception as e:
         print(f"Error: {e}")
         return jsonify({"message": str(e)}), 500
+
+
+@swag_from("swagger/logout.yml")
+def logout():
+    try:
+        token = request.headers.get("Authorization")
+
+        if not token:
+            return jsonify({"message": "Token is missing!"}), 403
+
+        try:
+            jwt.decode(token, JWT, algorithms=["HS256"])
+        except jwt.ExpiredSignatureError:
+            return jsonify({"message": "Token has expired!"}), 401
+        except jwt.InvalidTokenError:
+            return jsonify({"message": "Invalid token!"}), 401
+        return jsonify({"message": "Logout successful"}), 200
+
+    except Exception as e:
+        return jsonify({"message": f"Logout failed: {str(e)}"}), 500
