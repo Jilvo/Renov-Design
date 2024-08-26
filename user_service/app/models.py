@@ -7,3 +7,9 @@ class UserAccount(Table):
     username = Varchar(max_length=100, unique=True)
     email = Email()
     password = Varchar(max_length=100)
+
+
+class EmailRequest(Table):
+    receiver_email: str
+    subject: str
+    body: str
