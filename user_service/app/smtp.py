@@ -6,10 +6,11 @@ from flask import jsonify
 
 
 from models import EmailRequest
+import os
 
-email = "MS_8LdMsC@trial-0p7kx4xee3eg9yjr.mlsender.net"
-password = "vlqrsLaTUDNlU5xU"
-apitoken = "mlsn.9b1c08785bb41b1e603ea5d8f6a1d008fabcb1ff86367d9a76c2ac839f1b4088"
+email = os.getenv("email_smtp")
+password_smtp = os.getenv("password_smtp")
+apitoken_smtp = os.getenv("apitoken_smtp")
 
 
 def send_email_logic(email_request: EmailRequest):
@@ -21,7 +22,7 @@ def send_email_logic(email_request: EmailRequest):
         msg.attach(MIMEText(email_request.body, "plain"))
         server = smtplib.SMTP("smtp.mailersend.net", 587)
         server.starttls()
-        server.login(email, password)
+        server.login(email, password_smtp)
         server.sendmail(email, email_request.receiver_email, msg.as_string())
         server.quit()
         return jsonify({"message": "Email sent successfully"}), 201

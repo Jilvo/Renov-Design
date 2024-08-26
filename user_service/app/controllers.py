@@ -9,7 +9,7 @@ from smtp import send_email_logic
 
 
 SECRET_KEY = os.getenv("JWT_SECRET_KEY")
-JWT = "jwt"
+JWT = os.getenv("JWT")
 
 
 def verify_account():
