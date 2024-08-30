@@ -1,10 +1,62 @@
 <template>
   <Header />
-  <!-- <div>Redesignez votre maison</div> -->
+  <div>Redesignez votre maison</div>
   <body class="font-body">
     <!-- home section -->
     <section class="bg-white mb-20 md:mb-52 xl:mb-72">
       <div class="container max-w-screen-xl mx-auto px-4">
+        <nav
+          class="flex-wrap lg:flex items-center py-14 xl:relative z-10"
+          x-data="{navbarOpen:false}"
+        >
+          <div class="flex items-center justify-between mb-10 lg:mb-0">
+            <img :src="navbarlogo" alt="Logo img" class="w-52 md:w-80 lg:w-full" />
+
+            <button
+              class="lg:hidden w-10 h-10 ml-auto flex items-center justify-center text-green-700 border border-green-700 rounded-md"
+              @click="navbarOpen = !navbarOpen"
+            >
+              <i data-feather="menu"></i>
+            </button>
+          </div>
+
+          <ul
+            class="lg:flex flex-col lg:flex-row lg:items-center lg:mx-auto lg:space-x-8 xl:space-x-16"
+            :class="{ hidden: !navbarOpen, flex: navbarOpen }"
+          >
+            <li
+              class="font-semibold text-gray-900 text-lg hover:text-gray-400 transition ease-in-out duration-300 mb-5 lg:mb-0"
+            >
+              <a href="#">Landing</a>
+            </li>
+
+            <li
+              class="font-semibold text-gray-900 text-lg hover:text-gray-400 transition ease-in-out duration-300 mb-5 lg:mb-0"
+            >
+              <a href="#">Pages</a>
+            </li>
+
+            <li
+              class="font-semibold text-gray-900 text-lg hover:text-gray-400 transition ease-in-out duration-300 mb-5 lg:mb-0"
+            >
+              <a href="#">Contact</a>
+            </li>
+
+            <li
+              class="font-semibold text-gray-900 text-lg hover:text-gray-400 transition ease-in-out duration-300 mb-5 lg:mb-0"
+            >
+              <a href="#">About</a>
+            </li>
+          </ul>
+
+          <button
+            class="px-5 py-3 lg:block border-2 border-green-700 rounded-lg font-semibold text-green-700 text-lg hover:bg-green-700 hover:text-white transition ease-linear duration-500"
+            :class="{ hidden: !navbarOpen, flex: navbarOpen }"
+          >
+            Request quote
+          </button>
+        </nav>
+
         <div class="flex items-center justify-center xl:justify-start">
           <div class="mt-28 text-center xl:text-left">
             <h1
@@ -15,14 +67,14 @@
             </h1>
 
             <p class="font-normal text-xl text-gray-400 leading-relaxed mb-12">
-              You want to restyle a room in your house ?<br />
-              We offer you a wide range of styles to choose from.
+              Having a sweet home is everyone's dream. Have you <br />
+              owned your dream house?
             </p>
 
             <button
               class="px-6 py-4 bg-green-700 text-white font-semibold text-lg rounded-xl hover:bg-green-900 transition ease-in-out duration-500"
             >
-              Create a new style now
+              Contact us
             </button>
           </div>
 
@@ -48,12 +100,12 @@
               class="font-semibold text-gray-900 text-xl md:text-4xl text-center leading-normal mb-6"
             >
               Choice of various types of <br />
-              style
+              house
             </h1>
 
             <p class="font-normal text-gray-400 text-md md:text-xl text-center mb-16">
-              We provide a wide of selection of style <br />
-              for giving you a new look of your room.
+              We provide a wide of selection of home types for you and your <br />
+              family and are free to choose a home model
             </p>
 
             <div class="flex flex-col md:flex-row justify-center xl:justify-start space-x-4 mb-20">
@@ -64,9 +116,10 @@
               </div>
 
               <div class="text-center md:text-left">
-                <h4 class="font-semibold text-gray-900 text-2xl mb-2">Best Quality</h4>
+                <h4 class="font-semibold text-gray-900 text-2xl mb-2">Best Home Guarantee</h4>
                 <p class="font-normal text-gray-400 text-xl leading-relaxed">
-                  We guarantees the quality of our transformation .<br />
+                  We guarantees the quality of your home you bought <br />
+                  from D’house
                 </p>
               </div>
             </div>
@@ -81,7 +134,7 @@
               <div class="text-center md:text-left">
                 <h4 class="font-semibold text-gray-900 text-2xl mb-2">Safe Transaction</h4>
                 <p class="font-normal text-gray-400 text-xl leading-relaxed">
-                  Your transactions will always be kept confidential ,<br />
+                  Your transactions will always be kept confidential <br />
                   and will get discounted
                 </p>
               </div>
@@ -95,10 +148,10 @@
               </div>
 
               <div class="text-center md:text-left">
-                <h4 class="font-semibold text-gray-900 text-2xl mb-2">Large Styles</h4>
+                <h4 class="font-semibold text-gray-900 text-2xl mb-2">Low and Cost Home Taxes</h4>
                 <p class="font-normal text-gray-400 text-xl leading-relaxed">
-                  Scandinavian, Contemporary, Industrial,Traditional,<br />
-                  and so more...
+                  By buying a house from D’house, you will get a tax <br />
+                  discount
                 </p>
               </div>
             </div>
@@ -198,7 +251,7 @@
           class="font-semibold text-gray-900 text-2xl md:text-4xl text-center leading-normal mb-14"
         >
           What People Say <br />
-          About Our Reimagining
+          About D’house
         </h1>
 
         <div class="hidden xl:block xl:absolute top-0">
@@ -224,13 +277,9 @@
             </div>
 
             <p class="font-normal text-sm lg:text-md text-gray-400 mx-8 my-8">
-              I'm absolutely thrilled with the transformation of our living room. <br />
-              The team at Renov-Design used their imagination to perfectly capture <br />the essence
-              of what I wanted. The digital mock-up was so precise—it really helped us<br />
-              make informed decisions about our design choices before committing.<br />
-              The end result was exactly like the simulation, and our space feels completely
-              rejuvenated. Incredible service and spot-on<br />
-              design execution!
+              I recommend anyone to buy house on <br />
+              D’house. I received great customer service <br />
+              from the specialists who helped me.
             </p>
 
             <h3 class="font-semibold text-gray-900 text-xl md:text-2xl lg:text-3xl mx-8 mb-8">
@@ -250,19 +299,13 @@
             </div>
 
             <p class="font-normal text-sm lg:text-md text-gray-400 mx-8 my-8">
-              When I decided to redesign my bedroom, I was a bit overwhelmed with the options.<br />
-              Thankfully, I found Renov-Design and their image generation service was a game<br />
-              changer. The accuracy with which they visualized my ideas was astonishing. They
-              turned<br />
-              my vague concepts into a stunningly precise and beautiful design. It was like they<br />
-              read my mind! The process was easy, and the attention to detail was beyond what I<br />
-              expected. Highly recommended for anyone looking to see their ideas before making
-              them<br />
-              a reality.
+              D’house is the best property agent in the <br />
+              world. I received great customer service <br />
+              from the D’house agent
             </p>
 
             <h3 class="font-semibold text-gray-900 text-xl md:text-2xl lg:text-3xl mx-8 mb-8">
-              Derek W
+              Ralph Edwards
             </h3>
           </div>
         </div>
@@ -281,12 +324,14 @@
             <h1
               class="font-semibold text-white text-4xl md:text-5xl lg:text-7xl leading-normal mb-4"
             >
-              Need Help?
+              Talk to us <br />
+              to discuss
             </h1>
 
             <p class="font-normal text-white text-md md:text-xl">
               Need more time to discuss? Won’t worry, we are <br />
-              ready to help you.
+              ready to help you. You can fill in the column on the <br />
+              right to book a meeting with us. Totally free.
             </p>
           </div>
 
@@ -315,19 +360,35 @@
               />
             </div>
 
-            <div class="py-3">
+            <div class="py-3 relative">
               <input
                 type="text"
-                placeholder="Message"
-                class="px-4 py-10 w-96 bg-gray-100 placeholder-gray-400 rounded-xl outline-none"
+                placeholder="Date"
+                class="px-4 py-4 w-96 bg-gray-100 font-normal text-lg placeholder-gray-400 rounded-xl outline-none"
               />
+
+              <div class="absolute inset-y-0 left-80 ml-6 flex items-center text-xl text-gray-600">
+                <i data-feather="calendar"></i>
+              </div>
+            </div>
+
+            <div class="py-3 relative">
+              <input
+                type="text"
+                placeholder="Virtual Meeting"
+                class="px-4 py-4 w-96 bg-gray-100 placeholder-gray-400 rounded-xl outline-none"
+              />
+
+              <div class="absolute inset-y-0 left-80 ml-6 flex items-center text-xl text-gray-600">
+                <i data-feather="chevron-down"></i>
+              </div>
             </div>
 
             <div class="py-3">
               <button
                 class="w-full py-4 font-semibold text-lg text-white bg-green-700 rounded-xl hover:bg-green-900 transition ease-in-out duration-500"
               >
-                Contact Us
+                Booking
               </button>
             </div>
           </div>
