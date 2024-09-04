@@ -272,7 +272,7 @@
     <!-- testimoni section //end -->
 
     <!-- book section -->
-    <section class="bg-white py-10 md:py-16">
+    <section class="bg-white py-10 md:py-16" id="contact">
       <div class="container max-w-screen-xl mx-auto px-4 xl:relative">
         <div
           class="bg-green-800 flex flex-col lg:flex-row items-center justify-evenly py-14 rounded-3xl"

@@ -1,12 +1,19 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Home from '../views/Home.vue'
+import Home from '../views/HomeView.vue'
 
 const routes = [
   {
     path: '/',
     name: 'Home',
     component: Home
-  }
+  },
+  {
+    path: '/home#contact',  // Utiliser le chemin avec un hash
+    redirect: { path: '/', hash: '#contact' }  // Redirection vers la Home avec le hash
+  },
+  {path: "/login", component: () => import("../views/LoginView.vue")},
+  {path: "/sign-up", component: () => import("../views/SignUpView.vue")},
+  {path: "/generate", component: () => import("../views/GenerationView.vue")},
 ]
 
 const router = createRouter({

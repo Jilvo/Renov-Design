@@ -27,7 +27,8 @@ Avant de commencer, assurez-vous d'avoir les éléments suivants installés sur 
 - 8000 : Stockage-service
 - 5000 (8001) : Generation-service
 -  : User-service
-- 8080 : Front-service
+- 5173 : Front-service Vue.js
+- 
 
 ## Documentation
 Created with Sphinx and Readthedocs
@@ -44,3 +45,16 @@ in /docs
 make clean
 make html
 ```
+
+    list_prompt = [
+        "Transform the image to reflect a clean, streamlined design with handle-less cabinets, smooth surfaces, and a neutral color palette featuring whites, grays, and black accents.",
+        "Modify the image to include rustic elements like raw wood cabinetry, open shelving, and accessories in wrought iron or copper.",
+        "Adapt the image with features typical of Scandinavian design, such as light wood tones, simple lines, and functionality, accented with pastel colors.",
+        "Rework the image to showcase industrial elements like exposed piping, metal light fixtures, and a use of materials like stainless steel and concrete for a robust feel.",
+        "Alter the image to embody a traditional aesthetic with ornate woodwork, classic details, and rich color schemes, often incorporating patterns like plaids or florals.",
+        "Update the image to exhibit Art Deco flair with geometric patterns, bold streamlined forms, and luxurious materials like marble and gold.",
+        "Revise the image to blend contemporary design with eclectic accessories, featuring a mix of modern lines and varied textures or global décor influences.",
+        "Enhance the image to depict a high-tech kitchen with the latest appliances, smart home technology, and a sleek, modern look that incorporates glossy surfaces and high-end materials.",
+        "Transform the kitchen image to a bohemian style with vibrant colors, mixed patterns, and a collection of eclectic, artisanal, and vintage decor.",
+        "Modify the image to present a farmhouse style with apron sinks, open shelving, and a mix of rustic and modern elements that create a cozy, welcoming space.",
+    ]

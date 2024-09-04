@@ -2,6 +2,7 @@
   <nav class="fixed top-0 left-0 right-0 z-50 bg-white border-gray-200 dark:bg-gray-900">
     <div class="max-w-screen-2xl flex flex-wrap items-center justify-between mx-auto p-4">
       <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
+        <img :src="navbarlogo" alt="Logo" class="h-8" />
         <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
           Renov-Design
         </span>
@@ -12,7 +13,7 @@
         >
           <li>
             <a
-              href="#"
+              href="/generate"
               class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
             >
               Generate
@@ -20,7 +21,15 @@
           </li>
           <li>
             <a
-              href="#"
+              href="/login"
+              class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+            >
+              Login
+            </a>
+          </li>
+          <li>
+            <a
+              href="/#contact"
               class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
             >
               Contact
@@ -32,19 +41,6 @@
   </nav>
 </template>
 
-<style></style>
-
 <script setup>
 import navbarlogo from '@/assets/images/navbar-logo.png'
-defineProps({
-  msg: {
-    type: String,
-    required: true
-  },
-  data() {
-    return {
-      navbarlogo: navbarlogo
-    }
-  }
-})
 </script>
