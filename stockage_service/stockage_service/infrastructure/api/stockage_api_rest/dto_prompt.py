@@ -1,15 +1,14 @@
 from pydantic import BaseModel
-from typing import List, Optional
+from typing import Optional
 
 
 class PromptRequest(BaseModel):
-    content: str
     created_by: str
     tags: Optional[str]
     status: str
-    related_images: Optional[List[str]]
-    generation_origin: Optional[str]
-    processing_duration: Optional[int]
+    modified_image: Optional[str]
+    generation_origin: str
+    processing_duration: Optional[float]
 
 
 class PromptResponse(BaseModel):

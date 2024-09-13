@@ -1,11 +1,17 @@
+import json
 import os
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 from timeit import default_timer as timer
 import uuid
+import boto3
+from botocore.client import Config
+import requests
+from dotenv import load_dotenv
 
 app = Flask(__name__)
 CORS(app)
+load_dotenv()
 
 
 @app.route("/")
@@ -74,8 +80,6 @@ def modify_image():
     import torch
     import os
 
-    # user_id = data.get("user_id", "")
-    # Utiliser un chemin absolu pour charger l'image
     styles_dict = {
         "0": "Transform the image to reflect a clean, streamlined design with handle-less cabinets, smooth surfaces, and a neutral color palette featuring whites, grays, and black accents.",  # noqa: E501
         "1": "Modify the image to include rustic elements like raw wood cabinetry, open shelving, and accessories in wrought iron or copper.",  # noqa: E501
@@ -88,16 +92,21 @@ def modify_image():
         "8": "Transform the kitchen image to a bohemian style with vibrant colors, mixed patterns, and a collection of eclectic, artisanal, and vintage decor.",  # noqa: E501
         "9": "Modify the image to present a farmhouse style with apron sinks, open shelving, and a mix of rustic and modern elements that create a cozy, welcoming space.",  # noqa: E501
     }  # noqa: E501
+
+    bucket_name = os.getenv("S3_BUCKET_NAME")
+    access_key = os.getenv("S3_ACCESS_KEY")
+    secret_key = os.getenv("S3_SECRET_KEY")
+
     if style_name not in styles_dict:
         return jsonify({"code": 400, "message": "Invalid style"}), 400
-    # filename = secure_filename(file.filename)
+
     id_of_prompt = str(uuid.uuid4().hex)
+
     if not os.path.exists(user_id):
         os.makedirs(user_id)
     save_path = f"{user_id}/{id_of_prompt}_init.png"
     file.save(save_path)
     prompt = styles_dict[style_name]
-    # You can now use the saved image and style name to process further
     print("Style: ", style_name)
     print("Prompt: ", prompt)
 
@@ -120,17 +129,84 @@ def modify_image():
         strength=0.5,
         guidance_scale=0.0,
     ).images[0]
-    image.save(f"{user_id}/{id_of_prompt}.png")
+    output_path = f"{user_id}/{id_of_prompt}.png"
+    image.save(output_path)
     print("Image generated successfully!")
     end = timer()
+
+    # Upload Original to S3
+    upload_to_scaleway(
+        bucket_name, save_path, f"renov-design/{save_path}", access_key, secret_key
+    )
+
+    # Upload Modified to S3
+    upload_to_scaleway(
+        bucket_name, output_path, f"renov-design/{output_path}", access_key, secret_key
+    )
+
+    # Supprimer les fichiers locaux après l'upload
+    try:
+        os.remove(save_path)
+        os.remove(output_path)
+        print(f"Local files {save_path} and {output_path} deleted.")
+    except Exception as e:
+        print(f"Error deleting local files: {e}")
+    store_datas(
+        f"renov-design/{save_path}",
+        f"renov-design/{output_path}",
+        user_id,
+        tag=style_name,
+        processing_duration=round(end - start, 1),
+    )
     return jsonify(
         {
             "code": 200,
-            "generation_duration": round(end - start, 1),
-            "path": f"{id_of_prompt}.png",
+            "processing_duration": round(end - start, 1),
+            "modified_image": f"renov-design/{save_path}",
+            "origin_path": f"renov-design/{output_path}",
+            "tags": style_name,
             "message": "Image generated successfully!",
         }
     )
+
+
+def store_datas(modified_image, origin_path, user_id, tag, processing_duration):
+    data = {
+        "created_by": user_id,
+        "tags": tag,
+        "status": "PENDING",
+        "modified_image": modified_image,
+        "generation_origin": origin_path,
+        "processing_duration": processing_duration,
+    }
+    print("Storing data...", data)
+    response = requests.post(
+        "http://127.0.0.1:8000/stockage/prompts",
+        headers={"Content-Type": "application/json"},
+        data=json.dumps(data),  # Convertir les données en JSON
+    )
+    print("Response from server:", response.status_code, response.text)
+
+
+def upload_to_scaleway(
+    bucket_name, file_path, object_name, access_key, secret_key, region="fr-par"
+):
+    # Créer un client S3 compatible Scaleway
+    s3 = boto3.client(
+        "s3",
+        region_name=region,
+        endpoint_url=f"https://s3.{region}.scw.cloud",
+        aws_access_key_id=access_key,
+        aws_secret_access_key=secret_key,
+        config=Config(signature_version="s3v4"),
+    )
+
+    try:
+        # Uploader le fichier
+        s3.upload_file(file_path, bucket_name, object_name)
+        print(f"File {file_path} uploaded to {object_name} in bucket {bucket_name}.")
+    except Exception as e:
+        print(f"Error uploading file: {e}")
 
 
 if __name__ == "__main__":

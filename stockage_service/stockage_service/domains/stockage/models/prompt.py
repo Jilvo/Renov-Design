@@ -1,6 +1,4 @@
 from datetime import datetime
-from typing import List, Optional
-from uuid import UUID
 
 from pydantic import BaseModel
 
@@ -12,14 +10,13 @@ class Prompt(BaseModel):
     """Prompt's model, which is saved in the database"""
 
     id: str
-    content: str
     creation_date: datetime
     created_by: int
     tags: str = ""
     status: str
-    related_images: List[str]
-    generation_origin: str = ""
-    processing_duration: int = 0
+    modified_image: str = ""
+    generation_origin: str
+    processing_duration: float = 0
 
     def toDict(self):
         return self.model_dump()
@@ -40,8 +37,6 @@ class Prompt(BaseModel):
             DataValidationError : Raised if field is empty
         """
         error_list = []
-        if not prompt_request.content:
-            error_list.append("content empty")
         if not prompt_request.created_by:
             error_list.append("created_by empty")
         if not prompt_request.status:

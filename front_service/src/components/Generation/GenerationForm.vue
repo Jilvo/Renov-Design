@@ -121,16 +121,11 @@ export default {
 
       const selectedStyle = this.styles.find((style) => style.id === this.selectedStyleId)
 
-      console.log('File selected:', this.selectedFile)
-      console.log('Style selected:', selectedStyle.id)
-
       const formData = new FormData()
       formData.append('file', this.selectedFile)
-      console.log('this.selectedFile', this.selectedFile)
       formData.append('styleName', selectedStyle.id)
       formData.append('userId', '1000')
-      console.log('selectedStyle.id', selectedStyle.id)
-
+      // Modify Image
       try {
         const response = await axios.post('http://127.0.0.1:5000/modify', formData, {
           headers: {
@@ -144,6 +139,7 @@ export default {
         console.error('Upload failed:', error)
         // Gérer les erreurs ici
       }
+      // Stock information in the database
     }
   }
 }
