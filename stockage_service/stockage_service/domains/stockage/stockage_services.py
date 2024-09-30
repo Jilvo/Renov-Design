@@ -1,13 +1,15 @@
 from kink import di, inject
 
-from domains.stockage.use_case.stockage_initialisation_use_case import (
+from stockage_service.domains.stockage.use_case.stockage_initialisation_use_case import (
     StockageInitialisationUseCase,
 )
-from domains.stockage.use_case.stockage_storage_use_case import StockageStorageUseCase
-from domains.stockage.use_case.stockage_delete_prompts_use_case import (
+from stockage_service.domains.stockage.use_case.stockage_storage_use_case import (
+    StockageStorageUseCase,
+)
+from stockage_service.domains.stockage.use_case.stockage_delete_prompts_use_case import (
     StockageDeletePromptUseCase,
 )
-from domains.stockage.use_case.stockage_get_prompts_use_case import (
+from stockage_service.domains.stockage.use_case.stockage_get_prompts_use_case import (
     StockageGetPromptsUseCase,
 )
 

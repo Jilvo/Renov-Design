@@ -3,11 +3,13 @@ import uuid
 from kink import inject
 from google.cloud import storage
 
-from domains.stockage.interfaces.stockage_repository_mongo import (
+from stockage_service.domains.stockage.interfaces.stockage_repository_mongo import (
     StockageRepository,
 )
-from infrastructure.api.stockage_api_rest.dto_prompt import PromptRequest
-from domains.stockage.models.prompt import Prompt
+from stockage_service.infrastructure.api.stockage_api_rest.dto_prompt import (
+    PromptRequest,
+)
+from stockage_service.domains.stockage.models.prompt import Prompt
 
 
 @inject

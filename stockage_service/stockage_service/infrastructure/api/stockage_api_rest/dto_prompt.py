@@ -17,7 +17,7 @@ class PromptResponse(BaseModel):
     message: str
 
     class Config:
-        schema_extra = {
+        json_schema_extra = {
             "example": {
                 "code": 200,
                 "type": "success",

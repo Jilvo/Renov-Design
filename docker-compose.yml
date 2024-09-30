@@ -1,20 +1,46 @@
 version: '3.8'
 services:
-  web:
-    build: .
-    ports:
-      - "5000:5000"
-    volumes:
-      - .:/app
-    command: flask run --host=0.0.0.0 --port=8000
-    depends_on:
-      - db
+  # web:
+  #   build: .
+  #   ports:
+  #     - "5000:5000"
+  #   volumes:
+  #     - .:/app
+  #   command: flask run --host=0.0.0.0 --port=8000
+  #   depends_on:
+  #     - db
 
-  db:
-    image: postgres:13
-    environment:
-      POSTGRES_USER: alexiane
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
-      POSTGRES_DB: user_service
+  # db:
+  #   image: postgres:13
+  #   environment:
+  #     POSTGRES_USER: alexiane
+  #     POSTGRES_PASSWORD: alexiane
+  #     # POSTGRES_PASSWORD: ${DB_PASSWORD}
+  #     POSTGRES_DB: user_service
+  #   ports:
+  #     - "5432:5432"
+
+  generation_service:
+    image: generation_service:latest
+    build:
+      context: ./generation_service
     ports:
-      - "5432:5432"
+      - "5001:5001"
+    volumes:
+      - ./generation_service:/app
+
+  stockage_service:
+    image: stockage_service:latest
+    build:
+      context: ./stockage_service
+    ports:
+      - "8000:8000"
+
+  vue_front_service:
+    image: vue_front_service:latest
+    build:
+      context: ./vue_front_service
+    ports:
+      - "5174:5173"
+    volumes:
+      - ./vue_front_service:/app

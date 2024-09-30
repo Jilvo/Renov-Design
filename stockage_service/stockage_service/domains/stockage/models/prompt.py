@@ -2,8 +2,10 @@ from datetime import datetime
 
 from pydantic import BaseModel
 
-from infrastructure.api.stockage_api_rest.dto_prompt import PromptRequest
-from commons.errors import DataValidationError
+from stockage_service.infrastructure.api.stockage_api_rest.dto_prompt import (
+    PromptRequest,
+)
+from stockage_service.commons.errors import DataValidationError
 
 
 class Prompt(BaseModel):

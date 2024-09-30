@@ -1,4 +1,4 @@
-from domains.stockage.models.prompt import Prompt
+from stockage_service.domains.stockage.models.prompt import Prompt
 from typing import List
 
 

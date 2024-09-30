@@ -1,15 +1,15 @@
 from __future__ import annotations
 
 
-from domains.stockage.models.prompt import Prompt
-import traceback, json
+from stockage_service.domains.stockage.models.prompt import Prompt
+import traceback
 from kink import di, inject
 from pymongo import MongoClient
 from pymongo.collection import ReturnDocument
-from domains.stockage.interfaces.stockage_repository_mongo import (
+from stockage_service.domains.stockage.interfaces.stockage_repository_mongo import (
     StockageRepository,
 )
-from commons.errors import DataValidationError, DomainError
+from stockage_service.commons.errors import DataValidationError, DomainError
 
 
 @inject(alias="stockage_repository")

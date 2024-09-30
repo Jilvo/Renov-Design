@@ -3,7 +3,7 @@ from pydantic import BaseModel
 from typing import List, Dict
 from datetime import datetime
 
-from domains.stockage.models.prompt import Prompt
+from stockage_service.domains.stockage.models.prompt import Prompt
 
 
 class PromptMongoDto(BaseModel):
