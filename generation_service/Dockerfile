@@ -20,7 +20,7 @@ RUN poetry install --no-dev
 COPY . /app
 
 # Exposer le port sur lequel FastAPI va s'exécuter
-EXPOSE 8000
+EXPOSE 9000
 
 # Commande pour exécuter l'application FastAPI avec uvicorn
-CMD ["uvicorn", "generation_service.main:app", "--host", "0.0.0.0", "--port", "8001"]
+CMD ["uvicorn", "generation_service.main:app", "--host", "0.0.0.0", "--port", "9000"]

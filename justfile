@@ -18,10 +18,14 @@ docker-build-vue-front-service:
 build-all:
     just docker-build-stockage-service
     just docker-build-generation-service
-    just docker-build-vue-front-service
-
+build-and-run:
+    just build-all
+    just docker-up
 merge-from-main:
     git fetch origin main && git merge origin/main
 
 uptdoc-stockage-service:
     cd stockage_service && python generate_docs.py && poetry export -f requirements.txt --output requirements.txt --without-hashes && cd stockage_service/docs && make clean && make html
+
+lazy commit:
+    git add . && git commit -m {{commit}} && git push

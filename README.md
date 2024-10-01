@@ -25,7 +25,7 @@ Avant de commencer, assurez-vous d'avoir les éléments suivants installés sur 
 ## Ports
 
 - 8000 : Stockage-service
-- 5000 (8001) : Generation-service
+- 8000 (8000) : Generation-service
 -  : User-service
 - 5173 : Front-service Vue.js
 - 
@@ -58,3 +58,24 @@ make html
         "Transform the kitchen image to a bohemian style with vibrant colors, mixed patterns, and a collection of eclectic, artisanal, and vintage decor.",
         "Modify the image to present a farmhouse style with apron sinks, open shelving, and a mix of rustic and modern elements that create a cozy, welcoming space.",
     ]
+    docker run -d -p 8081:8000 stockage_service
+
+
+## Test SDXL
+A chaque fois il y aura 3 prompt différents
+`folder name : test_1 pour tester num_inference_steps`
+
+`folder name : test_2 pour tester guidance_scale`
+
+num_inference_steps
+Description : Ce paramètre spécifie le nombre d'étapes d'inférence que le modèle de diffusion doit effectuer pour générer une image.
+Impact :
+Qualité de l'image : Un nombre plus élevé d'étapes d'inférence peut améliorer la qualité de l'image générée, car le modèle a plus d'opportunités pour affiner les détails de l'image.
+Temps de calcul : Plus le nombre d'étapes est élevé, plus le temps de calcul sera long. Il y a donc un compromis entre la qualité de l'image et le temps nécessaire pour la générer.
+Exemple : num_inference_steps=50 signifie que le modèle effectuera 50 étapes d'inférence pour générer l'image.
+guidance_scale
+Description : Ce paramètre contrôle l'intensité de la guidance du modèle vers le prompt fourni. Il ajuste l'équilibre entre la fidélité au prompt et la diversité des images générées.
+Impact :
+Fidélité au prompt : Une valeur plus élevée de guidance_scale rendra l'image générée plus conforme au prompt. Cela signifie que le modèle suivra de plus près les instructions données dans le prompt.
+Diversité des images : Une valeur plus faible de guidance_scale permet plus de diversité et de créativité dans les images générées, mais elles peuvent être moins fidèles au prompt.
+Exemple : guidance_scale=7.5 signifie que le modèle suivra fortement le prompt, tandis qu'une valeur de guidance_scale=0.0 permettrait au modèle de générer des images plus variées et moins contraintes par le prompt.
