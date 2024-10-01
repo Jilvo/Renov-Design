@@ -1,4 +1,5 @@
 from flask import Flask
+
 from flasgger import Swagger
 from piccolo_conf import Config
 from app.controllers import (
@@ -16,6 +17,7 @@ import os
 
 def create_app():
     app = Flask(__name__)
+
     app.config.from_object(Config)
     app.config["JWT_SECRET_KEY"] = os.getenv("JWT_SECRET_KEY")
 

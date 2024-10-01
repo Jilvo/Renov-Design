@@ -12,6 +12,9 @@ piccolo = {extras = ["postgres"], version = "^1.13.1"}
 flasgger = "^0.9.7.1"
 flask-jwt-extended = "^4.6.0"
 flask-login = "^0.6.3"
+uvicorn = "^0.15.0"
+asgiref = "^3.8.1"
+gunicorn = "^23.0.0"
 
 
 [build-system]

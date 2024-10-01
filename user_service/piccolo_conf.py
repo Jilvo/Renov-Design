@@ -10,9 +10,11 @@ class Config:
 DB = PostgresEngine(
     config={
         "database": "user_service",
-        "user": "alexiane",
-        "password": os.getenv("DB_PASSWORD"),
-        "host": "localhost",
+        "user": "postgres",
+        # "user": "alexiane",
+        "password": "postgres",
+        # "password": os.getenv("DB_PASSWORD"),
+        "host": "db",
         "port": 5432,
     }
 )
