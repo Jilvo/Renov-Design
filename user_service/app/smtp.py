@@ -4,9 +4,9 @@ from email.mime.text import MIMEText
 
 from flask import jsonify
 
-
-from app.models import EmailRequest
+from models import EmailRequest
 import os
+
 
 email = os.getenv("email_smtp")
 password_smtp = os.getenv("password_smtp")
