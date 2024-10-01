@@ -1,20 +1,32 @@
 version: '3.8'
 services:
   web:
-    build: .
+    build:
+      context: ./user_service 
+      dockerfile: Dockerfile 
     ports:
       - "5000:5000"
     volumes:
-      - .:/app
-    command: flask run --host=0.0.0.0 --port=8000
+      - ./user_service:/app 
     depends_on:
-      - db
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgres://postgres:postgres@db/user_service 
+      command: /bin/bash -c "/app/install.sh && poetry run uvicorn run:asgi_app --host 0.0.0.0 --port 5000"
 
   db:
     image: postgres:13
     environment:
-      POSTGRES_USER: alexiane
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres 
       POSTGRES_DB: user_service
     ports:
       - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: on-failure
+    healthcheck:
+      test: pg_isready -U postgres
+volumes:
+  postgres_data:
