@@ -7,10 +7,8 @@ from flasgger import swag_from
 import os
 
 
-# from token_required import token_required
-
 SECRET_KEY = os.getenv("JWT_SECRET_KEY")
-JWT = "jwt"
+JWT = os.getenv("JWT")
 
 
 @swag_from("swagger/register_user.yml")
@@ -20,8 +18,14 @@ def register_user():
         username = data["username"]
         email = data["email"]
         password = data["password"]
+        date_of_birth = data["date_of_birth"]
         hashed_password = hashlib.sha256(password.encode()).hexdigest()
-        new_user = UserAccount(username=username, email=email, password=hashed_password)
+        new_user = UserAccount(
+            username=username,
+            email=email,
+            password=hashed_password,
+            date_of_birth=datetime.datetime.strptime(date_of_birth, "%Y-%m-%d").date(),
+        )
         new_user.save().run_sync()
 
         response = {
@@ -111,7 +115,6 @@ def get_user_by_id(user_id: int):
 
 
 @swag_from("swagger/delete_user.yml")
-# @token_required
 def delete_user(user_id: int):
     try:
         user_id = int(user_id)
@@ -179,3 +182,23 @@ def update_password():
     except Exception as e:
         print(f"Error: {e}")
         return jsonify({"message": str(e)}), 500
+
+
+@swag_from("swagger/logout.yml")
+def logout():
+    try:
+        token = request.headers.get("Authorization")
+
+        if not token:
+            return jsonify({"message": "Token is missing!"}), 403
+
+        try:
+            jwt.decode(token, JWT, algorithms=["HS256"])
+        except jwt.ExpiredSignatureError:
+            return jsonify({"message": "Token has expired!"}), 401
+        except jwt.InvalidTokenError:
+            return jsonify({"message": "Invalid token!"}), 401
+        return jsonify({"message": "Logout successful"}), 200
+
+    except Exception as e:
+        return jsonify({"message": f"Logout failed: {str(e)}"}), 500
