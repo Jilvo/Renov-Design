@@ -1,11 +1,14 @@
 from fastapi import APIRouter
-import infrastructure.api.technical_api_rest.api
-import infrastructure.api.stockage_api_rest.api
 
-tech_router: APIRouter = infrastructure.api.technical_api_rest.api.router  # noqa: F841
-stockage_router: APIRouter = (
-    infrastructure.api.stockage_api_rest.api.router
-)  # noqa: F841
+from stockage_service.infrastructure.api.technical_api_rest.api import (
+    router as tech_router,
+)
+from stockage_service.infrastructure.api.stockage_api_rest.api import (
+    router as stockage_router,
+)
+
+tech_router: APIRouter = tech_router  # noqa: F841
+stockage_router: APIRouter = stockage_router  # noqa: F841
 
 
 def bootstrap():

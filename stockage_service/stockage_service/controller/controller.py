@@ -1,9 +1,9 @@
-from infrastructure.api.bootstrap import (
+from stockage_service.infrastructure.api.bootstrap import (
     bootstrap as bootstrap_infrastructure,
 )
-from controller.global_parameters import global_parameters
+from stockage_service.controller.global_parameters import global_parameters
 
-from infrastructure.spi.repository.stockage_repository_mongo.bootstrap import (
+from stockage_service.infrastructure.spi.repository.stockage_repository_mongo.bootstrap import (
     bootstrap as boostrap_repository,
 )
 

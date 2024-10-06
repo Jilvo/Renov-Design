@@ -1,9 +1,9 @@
-from kink import inject, di
+from kink import inject
 
-from domains.stockage.interfaces.stockage_repository_mongo import (
+from stockage_service.domains.stockage.interfaces.stockage_repository_mongo import (
     StockageRepository,
 )
-from domains.stockage.models.prompt import Prompt
+from stockage_service.domains.stockage.models.prompt import Prompt
 
 
 @inject

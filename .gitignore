@@ -164,4 +164,6 @@ cython_debug/
 *.png
 # Piccolo
 piccolo_migrations/
-*.png
+generation_service/generation_service/ecstatic-pod-316216-449541c72059.json
+*.jpg
+*.avif

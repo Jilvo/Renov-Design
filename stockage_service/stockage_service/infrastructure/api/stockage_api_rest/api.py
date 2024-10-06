@@ -7,13 +7,15 @@ from fastapi import APIRouter, HTTPException, Request
 from fastapi.responses import JSONResponse
 from kink import di
 
-from infrastructure.api.stockage_api_rest.api_models import ErrorResponse
-from infrastructure.api.stockage_api_rest.dto_prompt import (
+from stockage_service.infrastructure.api.stockage_api_rest.api_models import (
+    ErrorResponse,
+)
+from stockage_service.infrastructure.api.stockage_api_rest.dto_prompt import (
     PromptRequest,
     PromptResponse,
 )
-from commons.errors import DataValidationError, DomainError
-from domains.stockage.stockage_services import StockageService
+from stockage_service.commons.errors import DataValidationError, DomainError
+from stockage_service.domains.stockage.stockage_services import StockageService
 
 router = APIRouter()
 di["stockage_api_router"] = router
@@ -105,11 +107,18 @@ def get_prompts():
     Returns:
         dict: A dictionary containing the prompts.
     """
-    return {"Prompts"}
+    try:
+        service: StockageService = di[StockageService]
+        prompts = service.stockage_get_prompts_use_case.action()
+        return {"code": 200, "type": "", "message": prompts}
+    except (DataValidationError, DomainError) as e:
+        return {"code": 400, "type": "Functional", "message": str(e)}
+    except Exception as e:
+        return {"code": 500, "type": "Technical", "message": str(e)}
 
 
 @router.get("/prompts/{prompt_id}")
-def get_prompt(prompt_id: str):
+def get_prompt_by_id(prompt_id: str):
     """
     Retrieve a prompt based on the given prompt_id.
 

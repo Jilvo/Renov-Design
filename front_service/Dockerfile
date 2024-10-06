@@ -16,4 +16,4 @@ EXPOSE 8080
 
 WORKDIR /app/dist
 
-CMD ["http-server", "-c-1", "."]
+CMD ["npm","run","start"]

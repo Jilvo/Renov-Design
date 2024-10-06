@@ -1,4 +1,4 @@
-from infrastructure.spi.repository.stockage_repository_mongo.stockage_repository_mongo import (
+from stockage_service.infrastructure.spi.repository.stockage_repository_mongo.stockage_repository_mongo import (
     StockageRepositoryCosmos,  # type: ignore
 )
 

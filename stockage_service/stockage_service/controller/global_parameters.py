@@ -1,5 +1,5 @@
 from kink import di
-from commons.utils import getOrSet
+from stockage_service.commons.utils import getOrSet
 
 
 try:

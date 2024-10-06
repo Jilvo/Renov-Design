@@ -1,5 +1,34 @@
-version: '3.8'
 services:
+  generation_service:
+    image: generation_service:latest
+    build:
+      context: ./generation_service
+    ports:
+      - "9000:9000"
+    volumes:
+      - ./generation_service:/app
+    env_file:
+      - .env
+
+  stockage_service:
+    image: stockage_service:latest
+    build:
+      context: ./stockage_service
+    ports:
+      - "8081:8081"
+    env_file:
+      - .env
+
+  vue_front_service:
+    image: vue_front_service:latest
+    build:
+      context: ./front_service
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./front_service:/app
+    env_file:
+      - .env
   web:
     build:
       context: ./user_service 
