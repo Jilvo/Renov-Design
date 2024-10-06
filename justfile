@@ -27,5 +27,5 @@ merge-from-main:
 uptdoc-stockage-service:
     cd stockage_service && python generate_docs.py && poetry export -f requirements.txt --output requirements.txt --without-hashes && cd stockage_service/docs && make clean && make html
 
-lazy commit:
-    git add . && git commit -m {{commit}} && git push
+lazy commit commit_message:
+    git add . && git commit -m "{{commit_message}}" && git push
