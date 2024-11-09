@@ -21,6 +21,7 @@ build-all:
 build-and-run:
     just build-all
     just docker-up
+    
 merge-from-main:
     git fetch origin main && git merge origin/main
 
@@ -29,3 +30,6 @@ uptdoc-stockage-service:
 
 lazy commit commit_message:
     git add . && git commit -m "{{commit_message}}" && git push
+
+init-project:
+    ./scripts/install.sh
