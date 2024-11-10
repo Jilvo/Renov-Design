@@ -7,12 +7,12 @@ parameters:
     schema:
       type: object
       properties:
-        username:
+        mail_address:
           type: string
         password:
           type: string
       required:
-        - username
+        - mail_address
         - password
 responses:
   200:

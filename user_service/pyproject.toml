@@ -15,6 +15,7 @@ flask-login = "^0.6.3"
 uvicorn = "^0.15.0"
 asgiref = "^3.8.1"
 gunicorn = "^23.0.0"
+flask-cors = "^5.0.0"
 
 
 [build-system]

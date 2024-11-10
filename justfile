@@ -21,7 +21,7 @@ build-all:
 build-and-run:
     just build-all
     just docker-up
-    
+
 merge-from-main:
     git fetch origin main && git merge origin/main
 
@@ -33,3 +33,6 @@ lazy commit commit_message:
 
 init-project:
     ./scripts/install.sh
+
+run-stockage-service:
+    cd stockage_service && poetry shell && cd stockage_service && python main.py

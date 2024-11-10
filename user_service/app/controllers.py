@@ -7,6 +7,7 @@ from flasgger import swag_from
 import os
 
 
+import secrets
 SECRET_KEY = os.getenv("JWT_SECRET_KEY")
 JWT = os.getenv("JWT")
 
@@ -43,30 +44,31 @@ def register_user():
 def login():
     try:
         data = request.get_json()
-        username = data.get("username")
+        print(data)
+        mail_address = data.get("mail_address")
         password = data.get("password")
-
+        
         user = (
             UserAccount.objects()
-            .where(UserAccount.username == username)
+            .where(UserAccount.email == mail_address)
             .first()
             .run_sync()
         )
-
+        JWT_SECRET = secrets.token_hex(32)
         if user:
             hashed_password = hashlib.sha256(password.encode()).hexdigest()
-
             if hashed_password == user.password:
                 token = jwt.encode(
                     {
                         "user_id": user.id,
-                        "exp": datetime.datetime.utcnow()
+                        "username": user.username,
+                        "email": user.email,
+                        "exp": datetime.datetime.now()
                         + datetime.timedelta(hours=24),
                     },
-                    JWT,
+                    JWT_SECRET,
                     algorithm="HS256",
                 )
-
                 response = {
                     "status": "success",
                     "message": "Login successful!",

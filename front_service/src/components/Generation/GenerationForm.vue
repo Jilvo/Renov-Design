@@ -1,69 +1,92 @@
 <template>
-  <section class="bg-gray-50 dark:bg-gray-900">
-    <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-      <div
-        class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-2xl xl:max-w-3xl xl:p-0 dark:bg-gray-800 dark:border-gray-700"
-      >
-        <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
-          <h1
-            class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white"
-          >
-            Upload and Generate Image
-          </h1>
-          <form @submit.prevent="submitForm" class="space-y-4 md:space-y-6">
-            <div>
-              <label for="file" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >Select an image</label
-              >
+  <section class="bg-gray-50 dark:bg-gray-900 min-h-screen flex items-center justify-center py-8 px-4 md:px-6">
+    <div class="w-full max-w-6xl bg-white rounded-lg shadow dark:border dark:bg-gray-800 dark:border-gray-700">
+      <div class="p-6 space-y-4 md:space-y-6">
+        <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white text-center">
+          Upload and Generate Image
+        </h1>
+        
+        <form @submit.prevent="submitForm" class="space-y-4 md:space-y-6">
+          
+          <!-- Zone de drag-and-drop améliorée -->
+          <div>
+            <label for="file" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+              Select an image
+            </label>
+            <div
+              @dragover.prevent
+              @drop.prevent="handleFileDrop"
+              :class="[
+                'file-input relative flex items-center justify-center w-full h-32 border-2 border-dashed rounded-lg cursor-pointer transition-all duration-200',
+                selectedFile ? 'border-green-500' : 'hover:border-blue-500',
+                'bg-gray-50 dark:bg-gray-700 dark:border-gray-600'
+              ]"
+            >
               <input
                 type="file"
                 id="file"
                 @change="handleFileChange"
                 accept=".jpg,.jpeg,.png"
-                class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                class="absolute inset-0 opacity-0"
                 required
               />
-            </div>
-            <div>
-              <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                Select a style
-              </label>
-              <div class="grid grid-cols-3 gap-4">
-                <template v-for="style in styles" :key="style.id">
-                  <div>
-                    <p
-                      :class="{
-                        'text-left text-gray-700 dark:text-gray-300 transition-all duration-300': true,
-                        'font-bold': style.id === selectedStyleId,
-                        'hover:font-bold': style.id !== selectedStyleId
-                      }"
-                    >
-                      {{ style.name }}
-                    </p>
-                    <button
-                      type="button"
-                      @click="selectStyle(style.id)"
-                      :style="{ backgroundImage: 'url(' + style.imageUrl + ')' }"
-                      :class="{
-                        'w-32 h-32 bg-cover bg-center rounded-lg transition-all duration-300': true,
-                        'hover:text-xl': style.id !== selectedStyleId,
-                        'active:text-2xl': style.id === selectedStyleId
-                      }"
-                    >
-                      <span class="sr-only">{{ style.name }}</span>
-                    </button>
-                  </div>
-                </template>
+              <div class="flex flex-col items-center text-gray-500 dark:text-gray-300">
+                <svg class="w-10 h-10 mb-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path
+                    fill-rule="evenodd"
+                    d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm4 3a1 1 0 000 2h4a1 1 0 100-2H8z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+                <span v-if="!selectedFile" class="text-sm font-medium">Drag & Drop or Click to Select</span>
+                <span v-else class="text-sm font-medium text-green-500">File Selected: {{ selectedFile.name }}</span>
               </div>
             </div>
-            <button
-              type="submit"
-              class="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-            >
-              Generate
-            </button>
-          </form>
-        </div>
+          </div>
+
+          <!-- Sélection du style améliorée et responsive -->
+          <div>
+            <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+              Select a style
+            </label>
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 gap-4">
+              <template v-for="style in styles" :key="style.id">
+                <div class="group relative">
+                  <p
+                    :class="{
+                      'text-left text-gray-700 dark:text-gray-300 transition-all duration-300': true,
+                      'font-bold': style.id === selectedStyleId,
+                      'hover:font-bold': style.id !== selectedStyleId
+                    }"
+                  >
+                    {{ style.name }}
+                  </p>
+                  <button
+                    type="button"
+                    @click="selectStyle(style.id)"
+                    :style="{ backgroundImage: 'url(' + style.imageUrl + ')' }"
+                    :class="{
+                      'w-28 h-28 md:w-32 md:h-32 bg-cover bg-center rounded-lg transition-all duration-300 transform': true,
+                      'border-4 border-blue-500 shadow-lg scale-105': style.id === selectedStyleId,
+                      'border-2 border-transparent hover:border-gray-300 hover:scale-105 hover:shadow-md': style.id !== selectedStyleId
+                    }"
+                  >
+                    <span class="sr-only">{{ style.name }}</span>
+                  </button>
+                </div>
+              </template>
+            </div>
+          </div>
+
+          <!-- Bouton Generate -->
+          <button
+            type="submit"
+            class="w-full text-white bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 transform transition duration-300 ease-in-out hover:scale-105"
+          >
+            Generate
+          </button>
+
+        </form>
       </div>
     </div>
   </section>
@@ -110,6 +133,12 @@ export default {
         this.selectedFile = file
       }
     },
+    handleFileDrop(event) {
+      const file = event.dataTransfer.files[0]
+      if (file) {
+        this.selectedFile = file
+      }
+    },
     selectStyle(styleId) {
       this.selectedStyleId = styleId
     },
@@ -132,45 +161,31 @@ export default {
             'Content-Type': 'multipart/form-data'
           }
         })
-        console.log('Upload successful:')
         console.log('Upload successful:', response.data)
-        // Traitez la réponse ici
       } catch (error) {
         console.error('Upload failed:', error)
-        // Gérer les erreurs ici
       }
-      // Stock information in the database
     }
   }
 }
 </script>
 
-<style>
-button:focus {
-  outline: none;
-}
+<style scoped>
 .file-input {
-  display: block;
-  width: 100%;
-  padding: 1rem;
-  border: 2px dashed #ccc;
-  border-radius: 0.5rem;
-  text-align: center;
-  cursor: pointer;
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .file-input:hover {
-  border-color: #999;
+  border-color: #4a90e2;
 }
 
-/* Additional Styles for Text Size */
-p.hover\:text-lg:hover {
-  font-size: 1.125rem;
+.file-input:active {
+  background-color: rgba(74, 144, 226, 0.1);
 }
-button.hover\:text-xl:hover span {
-  font-size: 1.25rem;
-}
-button.active\:text-2xl:active span {
-  font-size: 1.5rem;
+
+.file-input:focus-within {
+  border-color: #4a90e2;
+  background-color: rgba(74, 144, 226, 0.05);
 }
 </style>
