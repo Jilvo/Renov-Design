@@ -153,7 +153,8 @@ export default {
       const formData = new FormData()
       formData.append('file', this.selectedFile)
       formData.append('styleName', selectedStyle.id)
-      formData.append('userId', '1000')
+      const user_id = localStorage.getItem('user_id')
+      formData.append('userId', user_id)
       // Modify Image
       try {
         const response = await axios.post('http://localhost:5000/modify', formData, {

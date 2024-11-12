@@ -24,9 +24,9 @@ Avant de commencer, assurez-vous d'avoir les éléments suivants installés sur 
 - vue.js [Installation vue.js](https://vuejs.org/guide/quick-start)
 ## Ports
 
-- 8000 : Stockage-service
-- 8000 (8000) : Generation-service
--  : User-service
+- 8081 : Stockage-service
+- 9000 (8000) : Generation-service
+- 5000 : User-service
 - 5173 : Front-service Vue.js
 - 
 

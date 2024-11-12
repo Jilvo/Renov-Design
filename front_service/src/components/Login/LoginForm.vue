@@ -85,8 +85,6 @@
 
 <script>
 import axios from 'axios'
-// import * as jwt_decode from 'jwt-decode'
-
 export default {
   data() {
     return {
@@ -103,20 +101,15 @@ export default {
 
       formData.append('mail_address', this.form.email)
       formData.append('password', this.form.password)
-      console.log("formData",formData)
       try {
         const response = await axios.post('http://localhost:5000/login', formData, {
           headers: {
             'Content-Type': 'application/json'
           }
         })
-        console.log('response.data', response.data)
-        console.log('response.status', response.status)
         if (response.status == 200){
           const token = response.data.token
           localStorage.setItem('token', token)
-          // const decoded = jwt_decode(token)
-          // this.$emit('login', decoded.username)
           this.$router.push('/')
         }
       } catch (error) {

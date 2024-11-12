@@ -12,7 +12,7 @@
           class="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700"
         >
           <li>
-            <a href="/history" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 dark:text-white">History</a>
+            <a href="/history" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 dark:text-white">My History</a>
           </li>
           <li>
             <a href="/past-generations" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 dark:text-white">Few Generations</a>
@@ -24,9 +24,15 @@
             <a href="/login" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 dark:text-white">Login</a>
           </li>
           <li v-if="username">
-            <span class="block py-2 px-3 text-gray-900 dark:text-white">Bienvenue, {{ username }}</span>
+            <span class="block py-2 px-3 text-gray-900 dark:text-white">Bienvenue, {{String(username[0]).toUpperCase() + String(username).slice(1)}}</span>
           </li>
-          <li>
+          <li v-if="!username">
+            <a href="/sign-up" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 dark:text-white">Sign up</a>
+          </li>
+          <li v-if="username">
+            <a href="#" v-on:click=logout() class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 dark:text-white">Logout</a>
+          </li>
+            <li>
             <a href="/#contact" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 dark:text-white">Contact</a>
           </li>
         </ul>
@@ -37,33 +43,45 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
-// import { useJwt } from '@vueuse/integrations/useJwt'
-// import { defineComponent } from 'vue'
 import navbarlogo from '@/assets/images/navbar-logo.png'
 
 const username = ref('')
+
+function decodeJwt(token) {
+  const base64Payload = token.split('.')[1]
+  const payload = atob(base64Payload)
+  return JSON.parse(payload)
+}
+function logout() {
+  localStorage.removeItem('token')
+  localStorage.removeItem('user_id')
+  localStorage.removeItem('username')
+  username.value = ''
+  this.$router.push('/')
+}
 
 onMounted(() => {
   const token = localStorage.getItem('token')
   if (token) {
     try {
-      console.log("test")
-      console.log(token)
-      // const decoded = jwt_decode(token)
-      // const { header, payload } = useJwt(token)
-      // console.log(header)
-      // console.log(payload)
-      // Vérifie si le token a expiré
-      // const currentTime = Math.floor(Date.now() / 1000) // Heure actuelle en secondes
-      // if (decoded.exp && decoded.exp > currentTime) {
-      //   username.value = decoded.username
-      // } else {
-      //   console.warn('Token has expired')
-      //   localStorage.removeItem('token') // Supprime le token expiré
-      // }
+      console.log('Token found')
+      const decoded = decodeJwt(token)
+      const currentTime = Date.now() / 1000
+      if (decoded.exp > currentTime) {
+        username.value = decoded.username
+
+        localStorage.setItem('user_id', decoded.user_id)
+        localStorage.setItem('username', decoded.username)
+        console.log('Token is still valid')
+      } else {
+        console.warn('Token has expired')
+        localStorage.removeItem('token')
+      }
     } catch (error) {
       console.error('Invalid token', error)
-      localStorage.removeItem('token') // Supprime le token invalide
+      localStorage.removeItem('token')
+      localStorage.removeItem('user_id')
+      localStorage.removeItem('username')
     }
   }
 })
