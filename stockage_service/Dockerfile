@@ -5,8 +5,8 @@ FROM python:3.10-slim
 WORKDIR /app
 
 # Installer Poetry
-RUN pip install poetry
-
+# RUN pip install poetry
+RUN curl -sSL https://install.python-poetry.org | python3 -
 # Copier les fichiers de configuration de Poetry dans le conteneur
 COPY pyproject.toml poetry.lock* /app/
 
@@ -14,7 +14,7 @@ COPY pyproject.toml poetry.lock* /app/
 RUN poetry config virtualenvs.create false
 
 # Installer les dépendances en utilisant Poetry
-RUN poetry install --no-dev
+RUN poetry install
 
 # Copier le reste des fichiers du projet dans le conteneur
 COPY . /app

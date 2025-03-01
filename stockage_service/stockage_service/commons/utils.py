@@ -1,5 +1,7 @@
 import os
+from dotenv import load_dotenv
 
+load_dotenv()
 
 def convert_to_binary(input):
     """take a string and convert it to a binary string"""
